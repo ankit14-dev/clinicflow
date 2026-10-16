@@ -1,0 +1,279 @@
+# ClinicFlow CI/CD
+#
+#   test (pytest on PostgreSQL, ruff, migrations) ─┐
+#   frontend build ────────────────────────────────┼─> build images ─> Trivy gate ─> push to GHCR ─> Helm smoke test (kind) ─> deploy to EKS
+#   IaC lint (helm lint, terraform validate) ──────┘
+#
+# Images are tagged with the full git commit SHA, so every running pod traces back to one commit.
+# Third-party actions are pinned to commit SHAs (tags can be moved; SHAs cannot).
+name: ClinicFlow CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  backend-test:
+    name: Backend tests (pytest + PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:   # throwaway test database: tests never touch a real one
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: clinicflow
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: clinicflow_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U clinicflow" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://clinicflow:ci-only-password@localhost:5432/clinicflow_test
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Lint (ruff)
+        run: |
+          ruff check --output-format=github .
+          ruff format --check .
+      - name: Migrations apply cleanly and match the models
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+        run: |
+          alembic upgrade head
+          alembic check
+          alembic downgrade base
+      - name: Run pytest
+        run: pytest -v --cov=app --cov-report=term-missing --cov-fail-under=90 --junitxml=pytest-report.xml
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pytest-report
+          path: backend/pytest-report.xml
+
+  frontend-build:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - run: npm run build
+
+  iac-lint:
+    name: Helm + Terraform validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
+        with:
+          version: v4.3.0
+      - name: helm lint (all value sets)
+        run: |
+          for values in values.yaml values-dev.yaml values-eks.yaml; do
+            helm lint helm/clinicflow -f helm/clinicflow/$values
+          done
+          helm template clinicflow helm/clinicflow -f helm/clinicflow/values-eks.yaml > /dev/null
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+      - name: terraform fmt / validate
+        working-directory: terraform
+        run: |
+          terraform fmt -check -recursive
+          terraform init -backend=false -input=false
+          terraform validate
+
+  build-scan-push:
+    name: Build, scan & push (${{ matrix.component }})
+    needs: [backend-test, frontend-build, iac-lint]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        component: [backend, frontend]
+    permissions:
+      contents: read
+      packages: write          # push to GHCR with the built-in GITHUB_TOKEN
+      security-events: write   # upload Trivy results to the Security tab
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Image name (GHCR requires lowercase)
+        run: echo "IMAGE=${REGISTRY}/${GITHUB_REPOSITORY_OWNER,,}/clinicflow-${{ matrix.component }}" >> "$GITHUB_ENV"
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Build image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: ${{ matrix.component }}
+          load: true                     # into the local daemon: scan BEFORE anything is pushed
+          tags: ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+          build-args: APP_VERSION=${{ env.IMAGE_TAG }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.title=clinicflow-${{ matrix.component }}
+          cache-from: type=gha,scope=${{ matrix.component }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.component }}
+
+      - name: Trivy scan (report for the Security tab)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          image-ref: ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+          format: sarif
+          output: trivy-${{ matrix.component }}.sarif
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          scanners: vuln,secret
+          exit-code: "0"
+      - name: Upload Trivy SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        with:
+          sarif_file: trivy-${{ matrix.component }}.sarif
+          category: trivy-${{ matrix.component }}
+      - name: Trivy gate (fail on fixable HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          image-ref: ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+          format: table
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          scanners: vuln,secret
+          exit-code: "1"
+          skip-setup-trivy: true
+
+      - name: Save image for the Kubernetes smoke test
+        run: docker save "$IMAGE:$IMAGE_TAG" | gzip > image-${{ matrix.component }}.tar.gz
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: image-${{ matrix.component }}
+          path: image-${{ matrix.component }}.tar.gz
+          retention-days: 1
+
+      - name: Log in to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to GHCR (only scanned images, never from PRs)
+        if: github.event_name != 'pull_request'
+        run: |
+          docker push "$IMAGE:$IMAGE_TAG"
+          echo "### clinicflow-${{ matrix.component }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "\`$IMAGE:$IMAGE_TAG\`" >> "$GITHUB_STEP_SUMMARY"
+
+  k8s-smoke-test:
+    name: Helm deploy smoke test (kind)
+    needs: build-scan-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: image-*
+          merge-multiple: true
+      - uses: helm/kind-action@1544676c07bb3570fcb70166beaa07c4528fd4aa # v1.15.1
+        with:
+          cluster_name: ci
+      - uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
+        with:
+          version: v4.3.0
+      - name: Load the scanned images into kind
+        run: |
+          for f in image-*.tar.gz; do gunzip -c "$f" > "${f%.gz}" && kind load image-archive "${f%.gz}" --name ci; done
+      - name: helm upgrade --install
+        run: |
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          kubectl apply -f k8s/namespace.yaml -f k8s/limitrange.yaml
+          helm upgrade --install clinicflow helm/clinicflow -n clinicflow --wait --timeout 5m \
+            --set environment=ci \
+            --set ingress.enabled=false \
+            --set backend.autoscaling.enabled=false \
+            --set backend.image.repository=ghcr.io/$owner/clinicflow-backend \
+            --set frontend.image.repository=ghcr.io/$owner/clinicflow-frontend \
+            --set backend.image.tag=$IMAGE_TAG --set frontend.image.tag=$IMAGE_TAG \
+            --set backend.image.pullPolicy=Never --set frontend.image.pullPolicy=Never
+          kubectl get pods,svc -n clinicflow
+      - name: helm test
+        run: helm test clinicflow -n clinicflow --logs
+      - name: Diagnostics on failure
+        if: failure()
+        run: |
+          kubectl get events -n clinicflow --sort-by=.lastTimestamp | tail -30
+          kubectl describe pods -n clinicflow | tail -80
+          kubectl logs -n clinicflow -l app.kubernetes.io/component=backend --tail=50 --all-containers
+
+  deploy-eks:
+    name: Deploy to AWS EKS
+    needs: k8s-smoke-test
+    # set the repository variable EKS_DEPLOY=true while the cluster from terraform/ exists
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.EKS_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.url.outputs.app_url }}
+    permissions:
+      contents: read
+      id-token: write   # OIDC: exchange a short-lived GitHub token for AWS credentials (no stored AWS keys)
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-south-1' }}
+      - uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
+        with:
+          version: v4.3.0
+      - name: Configure kubectl
+        run: aws eks update-kubeconfig --name "${{ vars.EKS_CLUSTER_NAME || 'clinicflow-eks' }}" --region "${{ vars.AWS_REGION || 'ap-south-1' }}"
+      - name: helm upgrade --install
+        run: |
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          helm upgrade --install clinicflow helm/clinicflow -n clinicflow \
+            -f helm/clinicflow/values-eks.yaml \
+            --set backend.image.repository=ghcr.io/$owner/clinicflow-backend \
+            --set frontend.image.repository=ghcr.io/$owner/clinicflow-frontend \
+            --set backend.image.tag=$IMAGE_TAG --set frontend.image.tag=$IMAGE_TAG \
+            --rollback-on-failure --wait --timeout 10m
+          helm history clinicflow -n clinicflow --max 5
+      - name: helm test
+        run: helm test clinicflow -n clinicflow --logs
+      - name: Application URL
+        id: url
+        run: |
+          host=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          echo "app_url=http://$host/" >> "$GITHUB_OUTPUT"
+          echo "Deployed \`$IMAGE_TAG\` → http://$host/" >> "$GITHUB_STEP_SUMMARY"
