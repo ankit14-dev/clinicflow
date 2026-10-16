@@ -10,6 +10,13 @@ app.kubernetes.io/version: {{ .Values.backend.image.tag | default .Chart.AppVers
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 {{- end -}}
 
+{{/* labels for PostgreSQL's pod template: no app version, so app deploys don't restart the database */}}
+{{- define "clinicflow.dbLabels" -}}
+app.kubernetes.io/part-of: clinicflow
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
 {{/* selector labels: must never change after the first install (Deployment selectors are immutable) */}}
 {{- define "clinicflow.selector" -}}
 app.kubernetes.io/instance: {{ .root.Release.Name }}

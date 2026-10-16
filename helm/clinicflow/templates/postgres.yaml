@@ -26,7 +26,7 @@ spec:
     matchLabels: {{- include "clinicflow.selector" (dict "root" . "component" "postgres") | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "clinicflow.labels" . | nindent 8 }}
+      labels: {{- include "clinicflow.dbLabels" . | nindent 8 }}
         app.kubernetes.io/component: postgres
     spec:
       securityContext:
