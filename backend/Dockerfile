@@ -6,7 +6,8 @@ ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 RUN python -m venv /opt/venv
 ENV PATH=/opt/venv/bin:$PATH
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    && pip uninstall -y pip   # not needed at runtime; its vendored urllib3/msgpack carry CVEs
 
 # ---- runtime: only the venv and the app, running as a non-root user ----
 FROM python:3.14-slim
@@ -16,7 +17,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 ARG APP_VERSION=dev
 ENV APP_VERSION=${APP_VERSION}
 
-RUN useradd --create-home --uid 10001 appuser
+# the base image's own pip is unused too: remove it so it is not shipped (and scanned) in production
+RUN python -m pip uninstall -y pip \
+    && useradd --create-home --uid 10001 appuser
 WORKDIR /app
 COPY --from=build /opt/venv /opt/venv
 COPY alembic.ini ./
