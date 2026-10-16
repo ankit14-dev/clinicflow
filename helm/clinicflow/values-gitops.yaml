@@ -1,0 +1,8 @@
+# Desired image tags for the EKS environment. Written by CI (gitops-promote job) after the images
+# passed tests, the Trivy gate and the kind smoke test; Argo CD deploys whatever is committed here.
+backend:
+  image:
+    tag: 28ba9d5b620aefc978cdd434e2b9cf1b41c85779
+frontend:
+  image:
+    tag: 28ba9d5b620aefc978cdd434e2b9cf1b41c85779

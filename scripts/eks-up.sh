@@ -40,6 +40,6 @@ else
 fi
 echo
 echo "Cluster ready. Application entry point: http://$URL_HOST/"
-echo "Next: deploy the app — either push to main with the repo variable EKS_DEPLOY=true, or manually:"
-echo "  helm upgrade --install clinicflow helm/clinicflow -n clinicflow -f helm/clinicflow/values-eks.yaml \\"
-echo "    --set backend.image.tag=<git-sha> --set frontend.image.tag=<git-sha> --wait"
+
+# GitOps: Argo CD deploys ClinicFlow from helm/clinicflow + values-gitops.yaml on main
+"$(dirname "$0")/argocd-up.sh"

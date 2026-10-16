@@ -1,0 +1,40 @@
+# GitOps: Argo CD keeps the cluster equal to what git says.
+#   CI builds + scans + pushes images, then commits the new tag to helm/clinicflow/values-gitops.yaml.
+#   Argo CD notices the commit (polls every 60s), renders the chart and syncs the difference.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: clinicflow
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # deleting the Application also deletes what it deployed
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ankit14-dev/clinicflow.git
+    targetRevision: main
+    path: helm/clinicflow
+    helm:
+      releaseName: clinicflow
+      valueFiles:
+        - values-eks.yaml
+        - values-gitops.yaml        # image tags, written by the CI gitops-promote job
+      valuesObject:
+        postgresql:
+          # Argo CD renders charts without cluster access, so the chart's lookup()-based password
+          # generation cannot run here: the DB password lives in a Secret created at bootstrap.
+          existingSecret: clinicflow-db
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: clinicflow
+  syncPolicy:
+    automated:
+      prune: true        # resources removed from git are removed from the cluster
+      selfHeal: true     # manual kubectl changes are reverted to the git state
+    syncOptions:
+      - ServerSideApply=true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: clinicflow-backend
+      jsonPointers: [/spec/replicas]   # owned by the HPA, not by git

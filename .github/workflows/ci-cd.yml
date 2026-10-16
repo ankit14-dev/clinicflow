@@ -1,7 +1,8 @@
 # ClinicFlow CI/CD
 #
 #   test (pytest on PostgreSQL, ruff, migrations) ─┐
-#   frontend build ────────────────────────────────┼─> build images ─> Trivy gate ─> push to GHCR ─> Helm smoke test (kind) ─> deploy to EKS
+#   frontend build ────────────────────────────────┼─> build images ─> Trivy gate ─> push to GHCR ─> Helm smoke test (kind)
+#                                                                     ─> GitOps: commit tag to git ─> Argo CD syncs EKS ─> verify
 #   IaC lint (helm lint, terraform validate) ──────┘
 #
 # Images are tagged with the full git commit SHA, so every running pod traces back to one commit.
@@ -236,11 +237,35 @@ jobs:
           kubectl describe pods -n clinicflow | tail -80
           kubectl logs -n clinicflow -l app.kubernetes.io/component=backend --tail=50 --all-containers
 
-  deploy-eks:
-    name: Deploy to AWS EKS
+  gitops-promote:
+    name: GitOps promote (commit image tag)
     needs: k8s-smoke-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # commit the new tag back to main
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Write the scanned image tag to the GitOps values file
+        run: |
+          yq -i '.backend.image.tag = strenv(IMAGE_TAG) | .frontend.image.tag = strenv(IMAGE_TAG)' helm/clinicflow/values-gitops.yaml
+          git diff
+      - name: Commit and push (Argo CD deploys what is in git)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Deploy ${IMAGE_TAG::7} to EKS via GitOps [skip ci]" || { echo "tag already current"; exit 0; }
+          for _ in 1 2 3; do   # another push may have landed meanwhile
+            git pull --rebase origin main && git push origin HEAD:main && break
+            sleep 5
+          done
+          echo "Promoted \`${IMAGE_TAG}\` in helm/clinicflow/values-gitops.yaml" >> "$GITHUB_STEP_SUMMARY"
+
+  verify-eks:
+    name: Verify Argo CD rollout on EKS
+    needs: gitops-promote
     # set the repository variable EKS_DEPLOY=true while the cluster from terraform/ exists
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.EKS_DEPLOY == 'true'
+    if: vars.EKS_DEPLOY == 'true'
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -249,37 +274,38 @@ jobs:
       contents: read
       id-token: write   # OIDC: exchange a short-lived GitHub token for AWS credentials (no stored AWS keys)
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION || 'ap-south-1' }}
-      - uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
-        with:
-          version: v4.3.0
       - name: Configure kubectl
         run: aws eks update-kubeconfig --name "${{ vars.EKS_CLUSTER_NAME || 'clinicflow-eks' }}" --region "${{ vars.AWS_REGION || 'ap-south-1' }}"
-      - name: helm upgrade --install
+      - name: Wait for Argo CD to sync the new commit
         run: |
-          owner="${GITHUB_REPOSITORY_OWNER,,}"
-          helm upgrade --install clinicflow helm/clinicflow -n clinicflow \
-            -f helm/clinicflow/values-eks.yaml \
-            --set backend.image.repository="ghcr.io/$owner/clinicflow-backend" \
-            --set frontend.image.repository="ghcr.io/$owner/clinicflow-frontend" \
-            --set backend.image.tag="$IMAGE_TAG" --set frontend.image.tag="$IMAGE_TAG" \
-            --rollback-on-failure --wait --timeout 10m
-          helm history clinicflow -n clinicflow --max 5
-      - name: helm test
-        run: helm test clinicflow -n clinicflow --logs
-      - name: Application URL
+          # ask Argo CD to re-read git now instead of waiting for its next poll
+          kubectl annotate application clinicflow -n argocd argocd.argoproj.io/refresh=normal --overwrite
+          for _ in $(seq 1 60); do
+            image=$(kubectl get deploy clinicflow-backend -n clinicflow -o jsonpath='{.spec.template.spec.containers[0].image}')
+            case "$image" in *":$IMAGE_TAG") break ;; esac
+            echo "waiting for Argo CD (backend image: ${image##*:})"; sleep 10
+          done
+          case "$image" in *":$IMAGE_TAG") ;; *) echo "::error::Argo CD did not deploy $IMAGE_TAG within 10 minutes"; exit 1 ;; esac
+          kubectl rollout status deploy/clinicflow-backend -n clinicflow --timeout=5m
+          kubectl rollout status deploy/clinicflow-frontend -n clinicflow --timeout=5m
+          kubectl get application clinicflow -n argocd \
+            -o jsonpath='{"sync: "}{.status.sync.status}{"  health: "}{.status.health.status}{"  revision: "}{.status.sync.revision}{"\n"}'
+      - name: Smoke test through the Ingress
         id: url
         run: |
           host=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' 2>/dev/null || true)
-          # fall back to an ingress node's public IP when the controller runs without a load balancer
-          [ -n "$host" ] || host=$(kubectl get nodes -l ingress=public -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}' 2>/dev/null || true)
-          if [ -n "$host" ]; then
-            echo "app_url=http://$host/" >> "$GITHUB_OUTPUT"
-            echo "Deployed \`$IMAGE_TAG\` → http://$host/" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "Deployed \`$IMAGE_TAG\` (no public entry point found)" >> "$GITHUB_STEP_SUMMARY"
-          fi
+          # fall back to the ingress edge node's public IP when the controller runs without a load balancer
+          [ -n "$host" ] || host=$(kubectl get nodes -l ingress=public -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
+          for _ in $(seq 1 12); do
+            running=$(curl -fsS "http://$host/api/info" | jq -r .version) && [ "$running" = "$IMAGE_TAG" ] && break
+            sleep 5
+          done
+          echo "running version: $running"
+          [ "$running" = "$IMAGE_TAG" ]
+          curl -fsS "http://$host/api/stats" > /dev/null
+          echo "app_url=http://$host/" >> "$GITHUB_OUTPUT"
+          echo "Argo CD deployed \`$IMAGE_TAG\` → http://$host/" >> "$GITHUB_STEP_SUMMARY"

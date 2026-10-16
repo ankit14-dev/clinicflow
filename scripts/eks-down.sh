@@ -5,7 +5,11 @@
 # network interfaces in the subnets) and the EBS volumes keep billing.
 set -euo pipefail
 echo "==> removing Kubernetes-created AWS resources"
-helm uninstall clinicflow -n clinicflow --wait 2>/dev/null || true
+# Argo CD first: with selfHeal on it would recreate anything deleted underneath it.
+# Deleting the Application (resources finalizer) removes everything it deployed.
+kubectl delete application clinicflow -n argocd --wait=true --timeout=5m 2>/dev/null || true
+helm uninstall argocd -n argocd --wait 2>/dev/null || true
+helm uninstall clinicflow -n clinicflow --wait 2>/dev/null || true   # pre-GitOps installs
 kubectl delete pvc --all -n clinicflow --wait=true 2>/dev/null || true          # -> deletes the EBS volumes (reclaimPolicy Delete)
 helm uninstall kube-prometheus-stack -n monitoring --wait 2>/dev/null || true
 kubectl delete pvc --all -n monitoring --wait=true 2>/dev/null || true
