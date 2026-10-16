@@ -2,7 +2,7 @@
 # passed tests, the Trivy gate and the kind smoke test; Argo CD deploys whatever is committed here.
 backend:
   image:
-    tag: 28ba9d5b620aefc978cdd434e2b9cf1b41c85779
+    tag: e650ddcd274559f1d57fe1bf2cdd70f5fa34ccfc
 frontend:
   image:
-    tag: 28ba9d5b620aefc978cdd434e2b9cf1b41c85779
+    tag: e650ddcd274559f1d57fe1bf2cdd70f5fa34ccfc
