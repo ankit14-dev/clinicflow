@@ -1,0 +1,46 @@
+# helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+#   --version 92.9.0 -n monitoring --create-namespace -f monitoring/kube-prometheus-stack-values.yaml
+# Sized for 3 x t3.medium (or a laptop minikube). Access via port-forward, see README.
+
+prometheus:
+  prometheusSpec:
+    retention: 2d
+    # discover ServiceMonitors / PrometheusRules from every namespace and release (ClinicFlow's live in "clinicflow")
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    resources:
+      requests: {cpu: 100m, memory: 400Mi}
+      limits: {memory: 1Gi}
+
+grafana:
+  # demo credential only; real clusters use an existing Secret (grafana.admin.existingSecret)
+  adminPassword: clinicflow-demo
+  defaultDashboardsTimezone: browser
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard     # the ClinicFlow chart ships its dashboard as a ConfigMap with this label
+      searchNamespace: ALL
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+
+alertmanager:
+  alertmanagerSpec:
+    resources:
+      requests: {cpu: 10m, memory: 32Mi}
+
+prometheus-node-exporter:
+  resources:
+    requests: {cpu: 10m, memory: 24Mi}
+
+kube-state-metrics:
+  resources:
+    requests: {cpu: 10m, memory: 48Mi}
+
+# EKS manages the control plane: these components cannot be scraped and would show as DOWN
+kubeControllerManager: {enabled: false}
+kubeScheduler: {enabled: false}
+kubeEtcd: {enabled: false}
+kubeProxy: {enabled: false}
