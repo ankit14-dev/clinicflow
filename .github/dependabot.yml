@@ -13,6 +13,10 @@ updates:
   - package-ecosystem: docker
     directories: [/backend, /frontend]
     schedule: {interval: weekly}
+    ignore:
+      # base image majors (Node 25 is not LTS, new Python/nginx lines) are upgraded deliberately, not by bot
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: terraform
     directory: /terraform
     schedule: {interval: monthly}
