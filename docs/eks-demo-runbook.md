@@ -38,7 +38,7 @@ aws eks list-clusters --region ap-south-1     # must not say AccessDenied
 ```bash
 cd terraform
 terraform init
-terraform plan -out clinicflow.tfplan          # 📸 08-terraform-plan.png ("Plan: 59 to add")
+terraform plan -out clinicflow.tfplan          # 📸 08-terraform-plan.png ("Plan: 69 to add")
 terraform apply clinicflow.tfplan              # ~15 min
 terraform output
 cd ..
@@ -59,21 +59,22 @@ job installs the release and prints the URL.
 ## Part 3 — evidence on the running cluster
 
 ```bash
-LB=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-./scripts/seed-demo.sh "http://$LB"
+# public entry point: the ingress edge node (this account cannot create AWS load balancers)
+APP=$(kubectl get nodes -l ingress=public -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
+./scripts/seed-demo.sh "http://$APP"
 kubectl get pods -n clinicflow -o wide         # 📸 11-get-pods.png (all Running, 2+ backend, 2 frontend)
 kubectl get svc -n clinicflow                  # 📸 12-get-svc.png
 helm list -n clinicflow                        # 📸 13-helm-list.png
 kubectl get ingress,hpa -n clinicflow
 ```
 
-* Browser `http://$LB/` → 📸 `14-app-via-ingress.png`
+* Browser `http://$APP/` (also shown as ADDRESS in `kubectl get ingress -n clinicflow`) → 📸 `14-app-via-ingress.png`
 * `/metrics` is deliberately not routed through the Ingress (only `/` and `/api` are public), so read it in-cluster:
   `kubectl port-forward -n clinicflow svc/clinicflow-backend 8000:8000` then
   `curl -s localhost:8000/metrics | grep -E 'http_requests_total|clinicflow_'` → 📸 `15-metrics.png`
 * `kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090` →
   <http://localhost:9090/targets>, search *clinicflow* → both backend pods **UP** → 📸 `16-prometheus-targets.png`
-* `./scripts/traffic.sh "http://$LB" 600 &` then
+* `./scripts/traffic.sh "http://$APP" 600 &` then
   `kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3001:80` → <http://localhost:3001>
   (admin / clinicflow-demo) → Dashboards → *ClinicFlow – API & Clinic Overview* → 📸 `17-grafana.png`
 

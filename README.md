@@ -40,8 +40,8 @@ flowchart TB
   tf[Terraform] --> aws
 
   subgraph aws [AWS ap-south-1 — VPC 10.40.0.0/16, 2 AZs]
-    nlb[Network Load Balancer<br/>public subnets]
-    subgraph eks [EKS cluster · 3 × t3.medium in private subnets]
+    edge[edge node · t3.small<br/>public subnet, ports 80/443]
+    subgraph eks [EKS cluster · 3 × t3.medium in private subnets + 1 edge node]
       ing[ingress-nginx] -->|/| fe2[frontend ×2<br/>React on nginx]
       ing -->|/api| be[backend ×2–8<br/>FastAPI · HPA]
       fe2 -->|/api| be
@@ -49,12 +49,12 @@ flowchart TB
       prom[Prometheus] -->|ServiceMonitor /metrics| be
       graf[Grafana] --> prom
     end
-    nlb --> ing
+    edge --> ing
   end
 
   d --> eks
   ghcr -.->|image pull| eks
-  user([Clinic staff]) --> nlb
+  user([Clinic staff]) -->|http://public-ip| edge
 ```
 
 | Layer | Technology |
@@ -254,7 +254,10 @@ What the chart deploys:
 * **PostgreSQL** — StatefulSet with a PersistentVolumeClaim (EBS gp3 on EKS); password generated once into a
   Secret and kept across upgrades (`lookup` + `helm.sh/resource-policy: keep`).
 * **Ingress** — `/api` → backend, `/` → frontend. The Ingress is only configuration; the **ingress-nginx
-  controller** implements it and owns the AWS NLB.
+  controller** implements it. This AWS account is not allowed to create load balancers
+  (`OperationNotPermitted`), so the controller runs on a dedicated **edge node** in a public subnet
+  (`hostNetwork`, ports 80/443) and the app is reached at `http://<edge-node-public-ip>/`. With load balancers
+  available, set `public_ingress_node = false` in Terraform and `eks-up.sh` installs the NLB variant instead.
 * **HPA** — CPU target 60 % of the 100m request; faster scale-down window so the demo is visible.
 * **Monitoring objects** — ServiceMonitor, PrometheusRule (backend down, 5xx ratio, p95 latency, HPA at max,
   restarts) and the Grafana dashboard ConfigMap.
@@ -313,11 +316,16 @@ HPA current/desired/max replicas, CPU and memory per pod.
 
 * **PostgreSQL in the cluster** is fine for a classroom; production should use **Amazon RDS** (Multi-AZ,
   automated backups, patching, point-in-time recovery) and pass its endpoint via `existingSecret`.
-* **Migrations at container start** keep the demo simple; with many replicas a Helm pre-upgrade Job
-  (or CI step) running `alembic upgrade head` once is safer.
+* **Migrations at container start** — every replica runs `alembic upgrade head`; a PostgreSQL advisory lock
+  (`alembic/env.py`) makes concurrent replicas take turns. (The first EKS deploy, before the lock, showed the
+  race: two pods created `alembic_version` at once and one restarted.) A Helm pre-upgrade Job is the
+  alternative for very large deployments.
 * **No TLS** — the classroom has no domain. With one: cert-manager + Let's Encrypt and `ingress.tls: true`.
 * **ingress-nginx** matches the course; the chart only needs `ingress.className` changed to move to another
   controller (e.g. AWS Load Balancer Controller or Gateway API).
+* **GitHub OIDC subject** — this repository's tokens use GitHub's *immutable* subject format
+  `repo:ankit14-dev@<owner-id>/clinicflow@<repo-id>:environment:production`; the IAM trust policy accepts both
+  that and the classic `repo:ankit14-dev/clinicflow:…` form (`terraform/github-oidc.tf`).
 * **Cost control** — single NAT gateway, no KMS key / control-plane logs, `scripts/eks-down.sh` the same day.
 
 ## 15. Rubric evidence map

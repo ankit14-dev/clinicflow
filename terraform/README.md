@@ -4,10 +4,11 @@ Creates, in `ap-south-1` (Mumbai):
 
 ```text
 VPC 10.40.0.0/16
-├── public subnets   10.40.100.0/24, 10.40.101.0/24   (2 AZs) ── Internet Gateway, NAT Gateway, the NLB from ingress-nginx
+├── public subnets   10.40.100.0/24, 10.40.101.0/24   (2 AZs) ── Internet Gateway, NAT Gateway, ingress edge node
 ├── private subnets  10.40.0.0/24,   10.40.1.0/24     (2 AZs) ── worker nodes (no public IPs), egress via NAT
 └── EKS cluster clinicflow-eks (Kubernetes 1.36, API access entries)
-      ├── managed node group "general": 3 x t3.medium (min 2 / max 4), Amazon Linux 2023
+      ├── managed node group "general": 3 x t3.medium (min 2 / max 4), Amazon Linux 2023, private subnets
+      ├── managed node group "ingress": 1 x t3.small in a public subnet, tainted, SG opens only 80/443
       └── add-ons: vpc-cni, kube-proxy, coredns, eks-pod-identity-agent, aws-ebs-csi-driver, metrics-server
 IAM
 ├── clinicflow-ebs-csi        EBS CSI driver role via EKS Pod Identity
@@ -27,7 +28,7 @@ cd terraform
 cp terraform.tfvars.example terraform.tfvars   # optional, defaults already work
 terraform init
 terraform fmt -check && terraform validate
-terraform plan -out clinicflow.tfplan           # 59 resources to add
+terraform plan -out clinicflow.tfplan           # 69 resources to add
 terraform apply clinicflow.tfplan               # ~15 minutes
 cd .. && ./scripts/eks-up.sh                    # kubeconfig + monitoring + ingress controller
 ```
@@ -48,7 +49,7 @@ not by Terraform. If they still exist, destroy hangs on the VPC and the volumes 
 | EKS control plane (standard support) | 0.10 |
 | 3 × t3.medium nodes | ~0.13 |
 | NAT Gateway (+ data) | ~0.06 |
-| Network Load Balancer | ~0.02 |
+| Ingress edge node (t3.small) — or an NLB when `public_ingress_node = false` | ~0.02 |
 | EBS (nodes 3×20 GB + PVCs) | ~0.01 |
 | **Total** | **≈ $0.32/hour** — a 3-hour demo ≈ $1 |
 
@@ -57,7 +58,11 @@ Keep `kubernetes_version` in standard support: in extended support the control p
 
 ## Design decisions
 
-* **Nodes in private subnets** — workers are not reachable from the internet; only the NLB is public.
+* **Nodes in private subnets** — workers are not reachable from the internet; only the ingress edge node is.
+* **Edge node instead of a load balancer** — this AWS account returns `OperationNotPermitted` for
+  `CreateLoadBalancer` (ELB is disabled for the account, not an IAM issue). ingress-nginx therefore binds
+  80/443 on one public node. The EKS Pod Identity agent is kept off that node (it declares hostNetwork port 80).
+  Accounts with ELB access: `public_ingress_node = false` → `eks-up.sh` installs the NLB-backed controller.
 * **Single NAT gateway** — saves ~$0.06/hour per extra AZ; production would use one per AZ.
 * **No KMS key / control-plane logs** — a KMS key is billed for 7+ days after deletion and logs cost CloudWatch
   ingestion; both should be enabled for a long-lived cluster.
