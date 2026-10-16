@@ -4,7 +4,7 @@ aws_region         = "ap-south-1"
 project            = "clinicflow"
 environment        = "dev"
 owner              = "ankit-kumar"
-kubernetes_version = "1.34"
+kubernetes_version = "1.36"
 
 node_instance_types = ["t3.medium"]
 node_capacity_type  = "ON_DEMAND" # "SPOT" for a cheaper demo

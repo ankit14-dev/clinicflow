@@ -6,7 +6,7 @@ Creates, in `ap-south-1` (Mumbai):
 VPC 10.40.0.0/16
 ├── public subnets   10.40.100.0/24, 10.40.101.0/24   (2 AZs) ── Internet Gateway, NAT Gateway, the NLB from ingress-nginx
 ├── private subnets  10.40.0.0/24,   10.40.1.0/24     (2 AZs) ── worker nodes (no public IPs), egress via NAT
-└── EKS cluster clinicflow-eks (Kubernetes 1.34, API access entries)
+└── EKS cluster clinicflow-eks (Kubernetes 1.36, API access entries)
       ├── managed node group "general": 3 x t3.medium (min 2 / max 4), Amazon Linux 2023
       └── add-ons: vpc-cni, kube-proxy, coredns, eks-pod-identity-agent, aws-ebs-csi-driver, metrics-server
 IAM

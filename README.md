@@ -65,7 +65,7 @@ flowchart TB
 | Tests | pytest + coverage (25 tests, 99 %), ruff |
 | Containers | Docker multi-stage builds, Docker Compose |
 | CI/CD | GitHub Actions, GHCR, Trivy, kind |
-| Infrastructure | Terraform (terraform-aws-modules VPC 6.x / EKS 21.x), AWS VPC + EKS 1.34 |
+| Infrastructure | Terraform (terraform-aws-modules VPC 6.x / EKS 21.x), AWS VPC + EKS 1.36 |
 | Kubernetes | Helm 4 chart, ingress-nginx, HPA (metrics-server), PDBs, EBS CSI |
 | Observability | kube-prometheus-stack: Prometheus Operator, Prometheus, Grafana, Alertmanager |
 

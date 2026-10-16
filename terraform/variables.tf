@@ -31,7 +31,7 @@ variable "vpc_cidr" {
 variable "kubernetes_version" {
   description = "EKS Kubernetes version. Keep it in *standard* support: extended support costs 6x per cluster-hour"
   type        = string
-  default     = "1.34"
+  default     = "1.36"
 }
 
 variable "node_instance_types" {
