@@ -1,0 +1,18 @@
+# Weekly PRs for outdated dependencies; each PR runs the full pipeline (tests + Trivy) before merge.
+version: 2
+updates:
+  - package-ecosystem: github-actions   # bumps the pinned action SHAs too
+    directory: /
+    schedule: {interval: weekly}
+  - package-ecosystem: pip
+    directory: /backend
+    schedule: {interval: weekly}
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule: {interval: weekly}
+  - package-ecosystem: docker
+    directories: [/backend, /frontend]
+    schedule: {interval: weekly}
+  - package-ecosystem: terraform
+    directory: /terraform
+    schedule: {interval: monthly}

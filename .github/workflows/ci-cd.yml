@@ -222,9 +222,9 @@ jobs:
             --set environment=ci \
             --set ingress.enabled=false \
             --set backend.autoscaling.enabled=false \
-            --set backend.image.repository=ghcr.io/$owner/clinicflow-backend \
-            --set frontend.image.repository=ghcr.io/$owner/clinicflow-frontend \
-            --set backend.image.tag=$IMAGE_TAG --set frontend.image.tag=$IMAGE_TAG \
+            --set backend.image.repository="ghcr.io/$owner/clinicflow-backend" \
+            --set frontend.image.repository="ghcr.io/$owner/clinicflow-frontend" \
+            --set backend.image.tag="$IMAGE_TAG" --set frontend.image.tag="$IMAGE_TAG" \
             --set backend.image.pullPolicy=Never --set frontend.image.pullPolicy=Never
           kubectl get pods,svc -n clinicflow
       - name: helm test
@@ -264,9 +264,9 @@ jobs:
           owner="${GITHUB_REPOSITORY_OWNER,,}"
           helm upgrade --install clinicflow helm/clinicflow -n clinicflow \
             -f helm/clinicflow/values-eks.yaml \
-            --set backend.image.repository=ghcr.io/$owner/clinicflow-backend \
-            --set frontend.image.repository=ghcr.io/$owner/clinicflow-frontend \
-            --set backend.image.tag=$IMAGE_TAG --set frontend.image.tag=$IMAGE_TAG \
+            --set backend.image.repository="ghcr.io/$owner/clinicflow-backend" \
+            --set frontend.image.repository="ghcr.io/$owner/clinicflow-frontend" \
+            --set backend.image.tag="$IMAGE_TAG" --set frontend.image.tag="$IMAGE_TAG" \
             --rollback-on-failure --wait --timeout 10m
           helm history clinicflow -n clinicflow --max 5
       - name: helm test
