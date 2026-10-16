@@ -1,11 +1,13 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import engine_from_config, pool, text
 
 from alembic import context
 from app import models  # noqa: F401  (register tables on Base.metadata)
 from app.config import settings
 from app.db import Base
+
+MIGRATION_LOCK_KEY = 7_364_025  # arbitrary, unique to ClinicFlow migrations
 
 config = context.config
 # configparser treats % as interpolation, so URL-encoded passwords must be escaped
@@ -33,6 +35,10 @@ def run_migrations_online():
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata)
         with context.begin_transaction():
+            if connection.dialect.name == "postgresql":
+                # Every backend replica runs migrations on start. The transaction-scoped advisory lock makes
+                # them take turns: the first migrates, the others wait, then find the schema already at head.
+                connection.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": MIGRATION_LOCK_KEY})
             context.run_migrations()
 
 
