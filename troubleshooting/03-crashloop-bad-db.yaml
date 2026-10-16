@@ -1,0 +1,26 @@
+# LAB 3 — CrashLoopBackOff from bad configuration. Symptom: RESTARTS keeps climbing.
+#   kubectl apply -f troubleshooting/03-crashloop-bad-db.yaml
+#   kubectl get pods -n clinicflow -l lab=bad-db -w             -> Error -> CrashLoopBackOff
+#   kubectl logs -n clinicflow -l lab=bad-db --previous         -> psycopg OperationalError: could not translate host name
+# Cause: DATABASE_URL points at a host that does not exist, so "alembic upgrade head" fails and the container exits 1.
+# Fix: use the real Service name (clinicflow-postgres) and the password from the clinicflow-db Secret — or just
+#      delete the lab: kubectl delete -f troubleshooting/03-crashloop-bad-db.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-bad-db
+  namespace: clinicflow
+spec:
+  replicas: 1
+  selector: {matchLabels: {lab: bad-db}}
+  template:
+    metadata: {labels: {lab: bad-db}}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: backend
+          image: ghcr.io/ankit14-dev/clinicflow-backend:REPLACE_WITH_SHA   # e.g. kubectl get deploy clinicflow-backend -o jsonpath='{..image}'
+          env:
+            - name: DATABASE_URL
+              value: postgresql+psycopg://clinicflow:wrong@postgres-typo:5432/clinicflow
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}

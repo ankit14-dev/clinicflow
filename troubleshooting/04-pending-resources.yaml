@@ -1,0 +1,26 @@
+# LAB 4 — Pending pod. Symptom: STATUS Pending forever, no node assigned.
+#   kubectl apply -f troubleshooting/04-pending-resources.yaml
+#   kubectl describe pod -n clinicflow -l lab=too-big   -> "0/3 nodes are available: 3 Insufficient cpu"
+#   kubectl describe nodes | grep -A6 "Allocated resources"
+# Cause: requests (8 CPU, 16Gi) exceed what any t3.medium node (2 vCPU, 4 GiB) can offer.
+# Fix: lower requests to something realistic (kubectl edit) or add a bigger node group in terraform/.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-too-big
+  namespace: clinicflow
+spec:
+  replicas: 1
+  selector: {matchLabels: {lab: too-big}}
+  template:
+    metadata: {labels: {lab: too-big}}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: app
+          image: curlimages/curl:8.17.0
+          command: ["sleep", "infinity"]
+          resources:
+            requests: {cpu: "8", memory: 16Gi}
+            limits: {cpu: "8", memory: 16Gi}
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}

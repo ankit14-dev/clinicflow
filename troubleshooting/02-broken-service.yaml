@@ -1,0 +1,21 @@
+# LAB 2 — Service with no endpoints. Symptom: pods are Running but the Service times out / 503 via Ingress.
+#   kubectl apply -f troubleshooting/02-broken-service.yaml
+#   kubectl get endpointslices -n clinicflow -l kubernetes.io/service-name=lab-broken-service   -> no endpoints
+#   kubectl get pods -n clinicflow --show-labels | grep backend                              -> component=backend
+#   kubectl run -n clinicflow probe --rm -it --restart=Never --image=curlimages/curl:8.17.0 \
+#     --overrides='{"spec":{"securityContext":{"runAsNonRoot":true,"runAsUser":100,"seccompProfile":{"type":"RuntimeDefault"}},"containers":[{"name":"probe","image":"curlimages/curl:8.17.0","args":["-m","3","http://lab-broken-service:8000/health"],"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]}}}]}}'
+# Cause: selector says component=api, pods are labelled component=backend; port 8080 vs container 8000.
+# Fix: kubectl patch svc lab-broken-service -n clinicflow --type merge \
+#        -p '{"spec":{"selector":{"app.kubernetes.io/component":"backend"},"ports":[{"port":8000,"targetPort":"http"}]}}'
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab-broken-service
+  namespace: clinicflow
+spec:
+  selector:
+    app.kubernetes.io/instance: clinicflow
+    app.kubernetes.io/component: api        # wrong label
+  ports:
+    - port: 8000
+      targetPort: 8080                      # wrong port

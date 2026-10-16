@@ -1,0 +1,41 @@
+# In-cluster load generator for the HPA demo (no tools needed on your laptop):
+#   kubectl apply -f scripts/load-test-job.yaml
+#   kubectl get hpa -n clinicflow -w          # watch TARGETS climb past 60% and REPLICAS grow
+#   kubectl delete -f scripts/load-test-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: clinicflow-load-test
+  namespace: clinicflow
+spec:
+  parallelism: 4
+  completions: 4
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext: {runAsNonRoot: true, runAsUser: 100, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: load
+          image: curlimages/curl:8.17.0
+          env:
+            - {name: TARGET, value: "http://clinicflow-backend:8000"}
+            - {name: DURATION_SECONDS, value: "300"}
+          command: ["sh", "-c"]
+          args:
+            - |
+              end=$(( $(date +%s) + DURATION_SECONDS ))
+              n=0
+              while [ "$(date +%s)" -lt "$end" ]; do
+                for i in 1 2 3 4 5 6 7 8; do
+                  curl -s -o /dev/null "$TARGET/api/appointments" &
+                  curl -s -o /dev/null "$TARGET/api/stats" &
+                done
+                wait; n=$((n + 16))
+              done
+              echo "sent $n requests"
+          resources:
+            requests: {cpu: 50m, memory: 32Mi}
+            limits: {cpu: 300m, memory: 64Mi}
+          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}
