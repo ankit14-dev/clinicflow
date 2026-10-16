@@ -1,6 +1,22 @@
 locals {
   name = "${var.project}-eks"
   azs  = slice(data.aws_availability_zones.available.names, 0, 2)
+
+  app_node_groups = {
+    general = {
+      ami_type       = "AL2023_x86_64_STANDARD"
+      instance_types = var.node_instance_types
+      capacity_type  = var.node_capacity_type
+
+      min_size     = var.node_min_size
+      max_size     = var.node_max_size
+      desired_size = var.node_desired_size
+
+      disk_size = 20
+
+      labels = { workload = "general" }
+    }
+  }
 }
 
 # ---------------------------------------------------------------------------
@@ -18,6 +34,9 @@ module "vpc" {
 
   public_subnets  = [for i, _ in local.azs : cidrsubnet(var.vpc_cidr, 8, 100 + i)] # 10.40.100.0/24, 10.40.101.0/24
   private_subnets = [for i, _ in local.azs : cidrsubnet(var.vpc_cidr, 8, i)]       # 10.40.0.0/24,   10.40.1.0/24
+
+  # instances in public subnets get a public IP (only the optional ingress node lives there)
+  map_public_ip_on_launch = var.public_ingress_node
 
   enable_nat_gateway   = true
   single_nat_gateway   = true
@@ -68,6 +87,24 @@ module "eks" {
     coredns    = {}
     eks-pod-identity-agent = {
       before_compute = true
+      # The agent declares hostNetwork port 80 (it only binds 169.254.170.23:80), which blocks
+      # ingress-nginx from taking :80 on the edge node. The edge node needs no AWS credentials: skip it.
+      configuration_values = jsonencode({
+        affinity = {
+          nodeAffinity = {
+            requiredDuringSchedulingIgnoredDuringExecution = {
+              nodeSelectorTerms = [{
+                matchExpressions = [
+                  { key = "kubernetes.io/os", operator = "In", values = ["linux"] },
+                  { key = "kubernetes.io/arch", operator = "In", values = ["amd64", "arm64"] },
+                  { key = "eks.amazonaws.com/compute-type", operator = "NotIn", values = ["fargate", "hybrid", "auto"] },
+                  { key = "ingress", operator = "NotIn", values = ["public"] },
+                ]
+              }]
+            }
+          }
+        }
+      })
     }
     # PersistentVolumes for PostgreSQL; IAM via EKS Pod Identity (see ebs-csi.tf)
     aws-ebs-csi-driver = {
@@ -80,21 +117,26 @@ module "eks" {
     metrics-server = {}
   }
 
-  eks_managed_node_groups = {
-    general = {
+  # Optional edge node: some AWS accounts cannot create load balancers (OperationNotPermitted).
+  # One small node in a PUBLIC subnet runs ingress-nginx on hostNetwork :80; nothing else is scheduled there.
+  eks_managed_node_groups = merge(local.app_node_groups, var.public_ingress_node ? {
+    ingress = {
       ami_type       = "AL2023_x86_64_STANDARD"
-      instance_types = var.node_instance_types
-      capacity_type  = var.node_capacity_type
+      instance_types = [var.ingress_node_instance_type]
+      subnet_ids     = module.vpc.public_subnets
+      min_size       = 1
+      max_size       = 1
+      desired_size   = 1
+      disk_size      = 20
 
-      min_size     = var.node_min_size
-      max_size     = var.node_max_size
-      desired_size = var.node_desired_size
+      vpc_security_group_ids = [aws_security_group.ingress_public[0].id]
 
-      disk_size = 20
-
-      labels = { workload = "general" }
+      labels = { ingress = "public" }
+      taints = {
+        dedicated = { key = "ingress", value = "public", effect = "NO_SCHEDULE" }
+      }
     }
-  }
+  } : {})
 
   access_entries = var.github_repository == "" ? {} : {
     github_actions = {

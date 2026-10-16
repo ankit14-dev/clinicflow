@@ -24,7 +24,14 @@ data "aws_iam_policy_document" "github_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repository}:environment:${var.github_environment}"]
+      values = [
+        "repo:${var.github_repository}:environment:${var.github_environment}",
+        # immutable subject format (newer repositories): owner and repo carry their numeric IDs
+        format("repo:%s@%d/%s@%d:environment:%s",
+          split("/", var.github_repository)[0], var.github_repository_ids.owner_id,
+          split("/", var.github_repository)[1], var.github_repository_ids.repository_id,
+        var.github_environment),
+      ]
     }
   }
 }

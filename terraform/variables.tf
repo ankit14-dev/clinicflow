@@ -79,6 +79,29 @@ variable "github_repository" {
   default     = "ankit14-dev/clinicflow"
 }
 
+variable "github_repository_ids" {
+  description = "Numeric owner and repository IDs (gh api repos/OWNER/REPO -q '.owner.id, .id'). Repos using GitHub's immutable OIDC subject send repo:OWNER@ID/REPO@ID:..."
+  type = object({
+    owner_id      = number
+    repository_id = number
+  })
+  default = {
+    owner_id      = 177948380
+    repository_id = 1422220692
+  }
+}
+
+variable "public_ingress_node" {
+  description = "Run the ingress controller on a small node in a public subnet (for accounts where AWS load balancers are unavailable)"
+  type        = bool
+  default     = true
+}
+
+variable "ingress_node_instance_type" {
+  type    = string
+  default = "t3.small"
+}
+
 variable "github_environment" {
   description = "GitHub Actions environment used by the deploy job (part of the OIDC subject claim)"
   type        = string

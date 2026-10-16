@@ -1,0 +1,32 @@
+# For AWS accounts that cannot create load balancers (ELB "OperationNotPermitted"):
+# the controller runs on the dedicated edge node in a public subnet (terraform: public_ingress_node = true)
+# and binds ports 80/443 directly on that node's network. Open http://<edge-node-public-ip>/
+#   helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --version 4.15.1 \
+#     -n ingress-nginx --create-namespace -f monitoring/ingress-nginx-public-node-values.yaml
+controller:
+  kind: Deployment
+  replicaCount: 1                  # one edge node
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  nodeSelector:
+    ingress: public
+  tolerations:
+    - {key: ingress, operator: Equal, value: public, effect: NoSchedule}
+  service:
+    type: ClusterIP                # no cloud load balancer
+  publishService:
+    enabled: false
+  extraArgs:
+    report-node-internal-ip-address: "false"   # Ingress ADDRESS shows the node's public IP
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  resources:
+    requests: {cpu: 50m, memory: 96Mi}
+  admissionWebhooks:
+    patch:
+      nodeSelector:
+        ingress: public
+      tolerations:
+        - {key: ingress, operator: Equal, value: public, effect: NoSchedule}

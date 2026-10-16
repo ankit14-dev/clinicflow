@@ -35,3 +35,8 @@ output "github_deploy_role_arn" {
   description = "Set as the GitHub repository variable AWS_DEPLOY_ROLE_ARN"
   value       = try(aws_iam_role.github_deploy[0].arn, null)
 }
+
+output "ingress_mode" {
+  description = "public-node: ingress-nginx on the edge node's public IP; nlb: AWS Network Load Balancer"
+  value       = var.public_ingress_node ? "public-node" : "nlb"
+}
