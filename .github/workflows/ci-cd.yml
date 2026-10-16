@@ -229,7 +229,9 @@ jobs:
             --set backend.image.pullPolicy=Never --set frontend.image.pullPolicy=Never
           kubectl get pods,svc -n clinicflow
       - name: helm test
-        run: helm test clinicflow -n clinicflow --logs
+        run: |
+          helm test clinicflow -n clinicflow --logs
+          helm list -n clinicflow
       - name: Diagnostics on failure
         if: failure()
         run: |

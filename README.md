@@ -33,8 +33,11 @@ flowchart TB
     fe[frontend build<br/>npm audit] --> b
     iac[helm lint<br/>terraform validate] --> b
     b --> s[Trivy scan<br/>HIGH/CRITICAL gate] --> p[push to GHCR<br/>tag = commit SHA]
-    p --> k[kind cluster<br/>helm install + helm test] --> d[helm upgrade on EKS<br/>OIDC, no AWS keys]
+    p --> k[kind cluster<br/>helm install + helm test] --> g[commit image tag<br/>values-gitops.yaml]
   end
+
+  g -->|git push| gh
+  gh -.->|polls every 60 s| argo
 
   p -.-> ghcr[(GHCR images)]
   tf[Terraform] --> aws
@@ -42,6 +45,7 @@ flowchart TB
   subgraph aws [AWS ap-south-1 — VPC 10.40.0.0/16, 2 AZs]
     edge[edge node · t3.small<br/>public subnet, ports 80/443]
     subgraph eks [EKS cluster · 3 × t3.medium in private subnets + 1 edge node]
+      argo[Argo CD<br/>auto-sync · prune · self-heal] -->|renders helm/clinicflow| be
       ing[ingress-nginx] -->|/| fe2[frontend ×2<br/>React on nginx]
       ing -->|/api| be[backend ×2–8<br/>FastAPI · HPA]
       fe2 -->|/api| be
@@ -52,7 +56,6 @@ flowchart TB
     edge --> ing
   end
 
-  d --> eks
   ghcr -.->|image pull| eks
   user([Clinic staff]) -->|http://public-ip| edge
 ```
@@ -67,6 +70,7 @@ flowchart TB
 | CI/CD | GitHub Actions, GHCR, Trivy, kind |
 | Infrastructure | Terraform (terraform-aws-modules VPC 6.x / EKS 21.x), AWS VPC + EKS 1.36 |
 | Kubernetes | Helm 4 chart, ingress-nginx, HPA (metrics-server), PDBs, EBS CSI |
+| GitOps | Argo CD 3.5 (automated sync, prune, self-heal) |
 | Observability | kube-prometheus-stack: Prometheus Operator, Prometheus, Grafana, Alertmanager |
 
 ## 2. Repository layout
@@ -76,14 +80,16 @@ clinicflow/
 ├── backend/                 FastAPI app (app/), Alembic migrations, pytest suite, Dockerfile
 ├── frontend/                React app (src/), nginx config template, multi-stage Dockerfile
 ├── docker-compose.yml       full local stack: postgres + backend + frontend
-├── .github/workflows/       ci-cd.yml — test → build → scan → push → smoke-deploy → EKS deploy
+├── .github/workflows/       ci-cd.yml — test → build → scan → push → smoke-deploy → GitOps promote → verify
 ├── terraform/               AWS VPC + EKS + IAM (OIDC deploy role, EBS CSI role)
 ├── k8s/                     namespace (Pod Security "restricted"), LimitRange, gp3 StorageClass
 ├── helm/clinicflow/         Helm chart + values-dev.yaml (minikube) / values-eks.yaml (AWS)
 ├── monitoring/              kube-prometheus-stack and ingress-nginx values
 ├── troubleshooting/         4 break/fix labs + lab.sh driver
-├── scripts/                 demo data, traffic generator, HPA load test, eks-up / eks-down
-└── docs/                    EKS demo-day runbook, IAM policy, screenshots/
+├── argocd/                  Argo CD install values + the ClinicFlow Application (GitOps)
+├── scripts/                 demo data, traffic generator, HPA load test, eks-up / argocd-up / eks-down
+├── docs/                    EKS demo-day runbook, IAM policy, screenshots/
+└── demo/                    presentation video (MP4) + slide deck (PPTX/PDF)
 ```
 
 ---
@@ -173,7 +179,8 @@ Runs on every push and pull request to `main`.
 | **Helm + Terraform validation** | `helm lint` for every values file, `terraform fmt -check` + `validate` |
 | **Build, scan & push** (matrix: backend, frontend) | image built and loaded locally → Trivy SARIF report to the Security tab → **Trivy gate** fails the job on fixable HIGH/CRITICAL CVEs or leaked secrets → only then pushed to GHCR as `ghcr.io/ankit14-dev/clinicflow-<component>:<commit-sha>` (PRs never push) |
 | **Helm deploy smoke test** | spins up a kind cluster, loads the *scanned* images, `helm upgrade --install`, `helm test` |
-| **Deploy to AWS EKS** | only on `main` and only while repository variable `EKS_DEPLOY=true`: OIDC → AWS role → `helm upgrade --install --rollback-on-failure`, `helm test`, prints the app URL |
+| **GitOps promote** | only on `main`: writes the scanned image SHA into [`helm/clinicflow/values-gitops.yaml`](helm/clinicflow/values-gitops.yaml) and commits it as `github-actions[bot]` (`[skip ci]`) — git is now the record of what runs in production |
+| **Verify Argo CD rollout on EKS** | only while repository variable `EKS_DEPLOY=true`: OIDC → AWS role (read-only use) → waits until Argo CD has synced the new tag and both Deployments finished rolling out, then smoke-tests `/api/info` + `/api/stats` through the Ingress |
 
 The image tag is the full commit SHA: `commit A → image A → pods running A`. The UI footer shows the
 running SHA (`/api/info`), so a deploy is visible in the browser.
@@ -181,7 +188,7 @@ running SHA (`/api/info`), so a deploy is visible in the browser.
 All third-party actions are pinned to commit SHAs (a moved tag cannot inject code into the pipeline),
 and Dependabot keeps the pins, Python/npm packages and base images up to date.
 
-**GitHub settings used by the deploy job** (Settings → Secrets and variables → Actions → *Variables*):
+**GitHub settings used by the verify job** (Settings → Secrets and variables → Actions → *Variables*):
 
 | Variable | Value |
 |---|---|
@@ -190,8 +197,33 @@ and Dependabot keeps the pins, Python/npm packages and base images up to date.
 | `AWS_REGION` | `ap-south-1` |
 | `EKS_CLUSTER_NAME` | `clinicflow-eks` |
 
-No AWS access keys are stored in GitHub. The deploy job also uses a GitHub *environment* named
-`production`, which is part of the OIDC trust condition.
+No AWS access keys are stored in GitHub. The verify job also uses a GitHub *environment* named
+`production`, which is part of the OIDC trust condition. CI never runs `kubectl apply` or `helm upgrade`
+against EKS — it only changes git; Argo CD applies.
+
+### GitOps with Argo CD — [`argocd/`](argocd/)
+
+```text
+git push ─▶ CI: test → build → Trivy → GHCR → kind smoke test ─▶ CI commits new tag to values-gitops.yaml
+                                                                          │
+EKS ◀── Argo CD syncs (auto, prune, self-heal) ◀── Argo CD sees new commit on main (polls every 60 s)
+```
+
+* [`argocd/clinicflow-application.yaml`](argocd/clinicflow-application.yaml) — the Application: source
+  `helm/clinicflow` on `main` with `values-eks.yaml` + `values-gitops.yaml`, destination namespace `clinicflow`,
+  automated sync with **prune** (removed from git → removed from cluster) and **self-heal** (manual `kubectl`
+  edits are reverted). HPA-owned `replicas` is ignored in the diff.
+* [`argocd/argocd-values.yaml`](argocd/argocd-values.yaml) — Argo CD install (60 s git polling,
+  annotation-based resource tracking, no Dex/notifications).
+* [`scripts/argocd-up.sh`](scripts/argocd-up.sh) — installs Argo CD, creates the DB Secret, and **adopts** a
+  release previously installed with `helm upgrade` in place (no pod or database restart: tested on EKS).
+* **Rollback** = `git revert` of the bot's tag commit; Argo CD rolls back to the previous image.
+
+```bash
+kubectl get applications -n argocd                       # SYNC STATUS / HEALTH
+kubectl port-forward -n argocd svc/argocd-server 8080:80  # UI → http://localhost:8080, user admin
+kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
+```
 
 ## 8. DevSecOps — Trivy
 
@@ -234,15 +266,21 @@ Step-by-step demo day with every screenshot to take: [`docs/eks-demo-runbook.md`
 
 ## 10. Kubernetes + Helm
 
+On EKS the chart is deployed by **Argo CD** (section 7). Installed directly with Helm — as on minikube,
+in the CI kind cluster, or before GitOps is set up:
+
 ```bash
 kubectl apply -f k8s/namespace.yaml -f k8s/limitrange.yaml
 helm upgrade --install clinicflow helm/clinicflow -n clinicflow -f helm/clinicflow/values-eks.yaml \
   --set backend.image.tag=<sha> --set frontend.image.tag=<sha> --wait
 helm test clinicflow -n clinicflow
+helm list -n clinicflow
+helm history clinicflow -n clinicflow
 kubectl get pods,svc,ingress,hpa,pdb -n clinicflow
-helm history clinicflow -n clinicflow     # every CI deploy is a revision
-helm rollback clinicflow <revision> -n clinicflow
 ```
+
+Platform components on EKS are Helm releases too: `helm list -A` shows `argocd`, `ingress-nginx` and
+`kube-prometheus-stack`.
 
 What the chart deploys:
 
@@ -305,10 +343,11 @@ HPA current/desired/max replicas, CPU and memory per pod.
 2. Swagger `/docs`: create / read / update / delete.
 3. `kubectl exec -n clinicflow clinicflow-postgres-0 -- psql -U clinicflow -c 'select id, status, scheduled_at from appointments;'`
 4. Change something visible (e.g. the clinic name in `frontend/src/components/Sidebar.jsx`), commit, push.
-5. Watch the pipeline: tests → build → Trivy → GHCR → kind smoke test → EKS deploy.
+5. Watch the pipeline: tests → build → Trivy → GHCR → kind smoke test → GitOps promote → verify;
+   in the Argo CD UI the app goes OutOfSync → Syncing → Synced/Healthy on the bot's commit.
 6. GHCR package page: new SHA tag. 7. Trivy output in the job log / Security tab.
 8. `terraform/` code and AWS console (VPC, EKS, node group).
-9. `kubectl get pods,svc -n clinicflow`, `helm list -n clinicflow`, `helm history clinicflow -n clinicflow`.
+9. `kubectl get pods,svc,ingress -n clinicflow`, `kubectl get applications -n argocd`, `helm list -A`.
 10. Refresh the browser: footer shows the new build SHA, change is live — zero downtime.
 11. HPA load test; Grafana panels move. 12. Break and fix lab 1 or 2 live.
 
@@ -328,7 +367,22 @@ HPA current/desired/max replicas, CPU and memory per pod.
   that and the classic `repo:ankit14-dev/clinicflow:…` form (`terraform/github-oidc.tf`).
 * **Cost control** — single NAT gateway, no KMS key / control-plane logs, `scripts/eks-down.sh` the same day.
 
-## 15. Rubric evidence map
+## 15. Known issues & limitations
+
+| Issue | Impact | Mitigation / next step |
+|---|---|---|
+| The AWS account cannot create load balancers (`OperationNotPermitted` from ELB) | No NLB/ALB; one t3.small edge node in a public subnet runs ingress-nginx on ports 80/443 | It is a single point of entry: fine for a demo, not HA. With ELB access set `public_ingress_node = false` (NLB) or use the AWS Load Balancer Controller |
+| No domain → no TLS | Traffic is plain HTTP to an IP address | Route 53 domain + cert-manager/Let's Encrypt (`ingress.tls: true`) |
+| PostgreSQL runs in the cluster, single replica | Node loss = downtime until the pod reschedules (data survives on EBS); no automated backups | Amazon RDS Multi-AZ via `postgresql.existingSecret` + external host |
+| Edge node's public IP changes if the node is replaced | URL changes | Elastic IP on the node, or a load balancer + DNS |
+| Argo CD renders Helm charts offline | Chart's `lookup()` password generation can't run; `helm test` hooks are ignored; `helm list -n clinicflow` is empty on EKS | DB Secret created by `argocd-up.sh`; CI verify job replaces `helm test`; Helm release is visible in the CI kind job |
+| Argo CD UI only via `kubectl port-forward`, initial admin password | Not exposed publicly (intentional) | SSO (Dex/OIDC) and an Ingress with TLS for a team setup |
+| Grafana admin password is a demo value in `monitoring/` | Acceptable only because Grafana is not exposed | Use `grafana.admin.existingSecret` |
+| Migrations run at container start | Serialized by a PostgreSQL advisory lock; long migrations delay pod readiness | Pre-sync Argo CD hook Job for heavy migrations |
+| Single NAT gateway, no KMS key / control-plane logs | Lower cost, less resilience/auditability | One NAT per AZ, envelope encryption and control-plane logging for production |
+| Cluster is short-lived | Must be recreated for each demo (~25 min: `terraform apply` + `eks-up.sh`) | Remote state (S3 backend) for team use |
+
+## 16. Rubric evidence map
 
 | Module | Evidence in this repo | Screenshot to add in `docs/screenshots/` |
 |---|---|---|
@@ -339,6 +393,6 @@ HPA current/desired/max replicas, CPU and memory per pod.
 | M5 CI/CD | `.github/workflows/ci-cd.yml` | green run, GHCR packages with SHA tags |
 | M6 Trivy | gate + SARIF steps, section 8 above | Trivy step output |
 | M7 Terraform | `terraform/`, `terraform.tfvars.example` | `plan`, AWS console VPC + EKS, `destroy` complete |
-| M8 K8s + Helm | `k8s/`, `helm/clinicflow/` | `get pods`, `get svc`, `helm list`, app via Ingress |
+| M8 K8s + Helm | `k8s/`, `helm/clinicflow/`, `argocd/` | `get pods`, `get svc,ingress`, `helm list -A` + CI kind `helm list`, Argo CD Synced/Healthy, app via Ingress |
 | M9 Observability | `monitoring/`, chart ServiceMonitor + dashboard | `/metrics`, Prometheus Targets UP, Grafana panels |
-| M10 Docs + demo | this README, `docs/eks-demo-runbook.md` | live demo |
+| M10 Docs + demo | this README, `demo/` (video + slides) | — |
