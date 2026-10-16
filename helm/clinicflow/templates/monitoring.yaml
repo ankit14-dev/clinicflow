@@ -1,0 +1,75 @@
+{{- $name := include "clinicflow.fullname" . }}
+{{- $hasOperator := .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" }}
+{{- if and .Values.monitoring.serviceMonitor.enabled $hasOperator }}
+# Tells the Prometheus Operator (kube-prometheus-stack) to scrape the backend's /metrics
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $name }}-backend
+  labels: {{- include "clinicflow.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "clinicflow.selector" (dict "root" . "component" "backend") | nindent 6 }}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: {{ .Values.monitoring.serviceMonitor.interval }}
+---
+{{- end }}
+{{- if and .Values.monitoring.prometheusRule.enabled $hasOperator }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ $name }}-alerts
+  labels: {{- include "clinicflow.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: clinicflow.rules
+      rules:
+        - alert: ClinicFlowBackendDown
+          expr: sum(up{namespace="{{ .Release.Namespace }}", service="{{ $name }}-backend"}) == 0
+          for: 1m
+          labels: {severity: critical}
+          annotations:
+            summary: "No ClinicFlow backend pod can be scraped in {{ .Release.Namespace }}"
+        - alert: ClinicFlowHighErrorRate
+          expr: |
+            sum(rate(http_requests_total{namespace="{{ .Release.Namespace }}", status="5xx"}[5m]))
+              / clamp_min(sum(rate(http_requests_total{namespace="{{ .Release.Namespace }}"}[5m])), 0.001) > 0.05
+          for: 2m
+          labels: {severity: warning}
+          annotations:
+            summary: "More than 5% of ClinicFlow API requests fail with 5xx"
+        - alert: ClinicFlowHighLatencyP95
+          expr: |
+            histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{namespace="{{ .Release.Namespace }}"}[5m]))) > 0.5
+          for: 5m
+          labels: {severity: warning}
+          annotations:
+            summary: "ClinicFlow API p95 latency above 500ms"
+        - alert: ClinicFlowBackendAtMaxReplicas
+          expr: |
+            kube_horizontalpodautoscaler_status_current_replicas{namespace="{{ .Release.Namespace }}", horizontalpodautoscaler="{{ $name }}-backend"}
+              >= kube_horizontalpodautoscaler_spec_max_replicas{namespace="{{ .Release.Namespace }}", horizontalpodautoscaler="{{ $name }}-backend"}
+          for: 10m
+          labels: {severity: warning}
+          annotations:
+            summary: "Backend HPA has been at max replicas for 10 minutes: raise maxReplicas or add nodes"
+        - alert: ClinicFlowPodRestarting
+          expr: increase(kube_pod_container_status_restarts_total{namespace="{{ .Release.Namespace }}"}[10m]) > 2
+          labels: {severity: warning}
+          annotations:
+            summary: "Pod {{ "{{" }} $labels.pod {{ "}}" }} restarted more than twice in 10 minutes"
+---
+{{- end }}
+{{- if .Values.monitoring.grafanaDashboard.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name }}-dashboard
+  labels: {{- include "clinicflow.labels" . | nindent 4 }}
+    grafana_dashboard: "1"     # imported automatically by the kube-prometheus-stack Grafana sidecar
+data:
+  clinicflow.json: |-
+{{ .Files.Get "dashboards/clinicflow.json" | replace "__NAMESPACE__" .Release.Namespace | indent 4 }}
+{{- end }}

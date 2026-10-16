@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "clinicflow.fullname" . }}-smoke-test
+  labels: {{- include "clinicflow.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 100
+    seccompProfile: {type: RuntimeDefault}
+  containers:
+    - name: smoke
+      image: curlimages/curl:8.17.0
+      command: ["sh", "-ec"]
+      args:
+        - |
+          curl -fsS http://{{ include "clinicflow.fullname" . }}-backend:8000/ready
+          curl -fsS http://{{ include "clinicflow.fullname" . }}-frontend/healthz
+          curl -fsS http://{{ include "clinicflow.fullname" . }}-frontend/api/stats
+          curl -fsS http://{{ include "clinicflow.fullname" . }}-backend:8000/metrics | grep -q http_requests_total
+          echo "smoke tests passed"
+      resources:
+        requests: {cpu: 10m, memory: 16Mi}
+        limits: {cpu: 100m, memory: 64Mi}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities: {drop: ["ALL"]}

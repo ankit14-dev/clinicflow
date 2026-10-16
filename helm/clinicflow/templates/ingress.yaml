@@ -1,0 +1,33 @@
+{{- if .Values.ingress.enabled }}
+{{- $name := include "clinicflow.fullname" . }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $name }}
+  labels: {{- include "clinicflow.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if and .Values.ingress.tls .Values.ingress.host }}
+  tls:
+    - hosts: [{{ .Values.ingress.host | quote }}]
+      secretName: {{ $name }}-tls
+  {{- end }}
+  rules:
+    - {{- with .Values.ingress.host }}
+      host: {{ . | quote }}
+      {{- end }}
+      http:
+        paths:
+          # /api -> FastAPI, everything else -> React (nginx)
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: {name: {{ $name }}-backend, port: {number: 8000}}
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: {{ $name }}-frontend, port: {number: 80}}
+{{- end }}

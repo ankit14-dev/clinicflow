@@ -1,0 +1,10 @@
+# Logical isolation for ClinicFlow. Pod Security Admission "restricted" rejects pods that run as
+# root, escalate privileges or keep Linux capabilities — every ClinicFlow pod is built to pass it.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: clinicflow
+  labels:
+    app.kubernetes.io/part-of: clinicflow
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/warn: restricted

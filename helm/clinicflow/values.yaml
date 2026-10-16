@@ -1,0 +1,68 @@
+# Default values for the ClinicFlow chart.
+# Environment overlays: values-dev.yaml (minikube), values-eks.yaml (AWS EKS).
+
+environment: kubernetes
+clinicTimezone: Asia/Kolkata
+
+imagePullSecrets: []   # e.g. [{name: ghcr-pull}] if the GHCR packages are private
+
+backend:
+  image:
+    repository: ghcr.io/ankit14-dev/clinicflow-backend
+    tag: ""               # defaults to .Chart.AppVersion; CI sets the git SHA
+    pullPolicy: IfNotPresent
+  replicas: 2             # used only when autoscaling is disabled
+  port: 8000
+  resources:
+    requests: {cpu: 100m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 256Mi}
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 60
+  pdb:
+    minAvailable: 1
+
+frontend:
+  image:
+    repository: ghcr.io/ankit14-dev/clinicflow-frontend
+    tag: ""
+    pullPolicy: IfNotPresent
+  replicas: 2
+  port: 8080
+  resources:
+    requests: {cpu: 25m, memory: 32Mi}
+    limits: {cpu: 200m, memory: 96Mi}
+  pdb:
+    minAvailable: 1
+
+postgresql:
+  image: postgres:17-alpine
+  database: clinicflow
+  username: clinicflow
+  # Empty: the chart generates a random password once and keeps it across upgrades.
+  # Or name a Secret you created yourself (key: postgres-password).
+  existingSecret: ""
+  storage:
+    size: 2Gi
+    storageClassName: ""    # "" = cluster default (minikube: standard, EKS: gp3 from k8s/storageclass-gp3.yaml)
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 512Mi}
+
+ingress:
+  enabled: true
+  className: nginx
+  host: clinicflow.local   # "" = match any host (e.g. open the AWS load balancer hostname directly)
+  tls: false
+  annotations: {}
+
+monitoring:
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+  prometheusRule:
+    enabled: true
+  grafanaDashboard:
+    enabled: true

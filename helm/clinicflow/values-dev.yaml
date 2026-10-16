@@ -1,0 +1,9 @@
+# Local minikube:  helm upgrade --install clinicflow helm/clinicflow -n clinicflow -f helm/clinicflow/values-dev.yaml
+# Images are built straight into minikube's Docker daemon (eval $(minikube docker-env)), so no registry pull.
+environment: minikube
+backend:
+  image: {repository: clinicflow-backend, tag: local, pullPolicy: Never}
+frontend:
+  image: {repository: clinicflow-frontend, tag: local, pullPolicy: Never}
+ingress:
+  host: clinicflow.192.168.49.2.nip.io   # nip.io resolves to the minikube IP; check with `minikube ip`

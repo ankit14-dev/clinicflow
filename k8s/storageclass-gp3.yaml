@@ -1,0 +1,15 @@
+# EKS only. Since Kubernetes 1.30 EKS no longer marks gp2 as the default StorageClass, so a PVC without
+# storageClassName would stay Pending. This makes encrypted gp3 (EBS CSI driver add-on, see terraform/) the default.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gp3
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: ebs.csi.aws.com
+parameters:
+  type: gp3
+  encrypted: "true"
+volumeBindingMode: WaitForFirstConsumer   # create the volume in the AZ where the pod is scheduled
+reclaimPolicy: Delete
+allowVolumeExpansion: true

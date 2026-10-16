@@ -1,0 +1,10 @@
+# AWS EKS (terraform/): image tags are passed by CI with --set *.image.tag=<git sha>
+environment: eks
+backend:
+  autoscaling: {minReplicas: 2, maxReplicas: 8}
+postgresql:
+  storage: {size: 5Gi, storageClassName: gp3}
+ingress:
+  # no fixed DNS name in the classroom account: route any host, open the NLB hostname printed by
+  # `kubectl get svc -n ingress-nginx ingress-nginx-controller`
+  host: ""

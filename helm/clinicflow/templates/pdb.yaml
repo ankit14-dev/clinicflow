@@ -1,0 +1,14 @@
+{{- range $component := list "backend" "frontend" }}
+{{- with (index $.Values $component).pdb }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "clinicflow.fullname" $ }}-{{ $component }}
+  labels: {{- include "clinicflow.labels" $ | nindent 4 }}
+spec:
+  minAvailable: {{ .minAvailable }}    # node drains / upgrades keep at least one pod serving
+  selector:
+    matchLabels: {{- include "clinicflow.selector" (dict "root" $ "component" $component) | nindent 6 }}
+---
+{{- end }}
+{{- end }}

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: clinicflow
+description: ClinicFlow clinic appointment system (React + FastAPI + PostgreSQL) with probes, HPA, Ingress and Prometheus monitoring
+type: application
+version: 1.0.0
+# image tag used when values do not override it; CI always passes the commit SHA
+appVersion: "1.0.0"
+keywords: [clinic, appointments, fastapi, react, postgresql]
+maintainers:
+  - name: Ankit Kumar
+    url: https://github.com/ankit14-dev
