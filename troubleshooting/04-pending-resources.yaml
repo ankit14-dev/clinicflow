@@ -23,4 +23,4 @@ spec:
           resources:
             requests: {cpu: "8", memory: 16Gi}
             limits: {cpu: "8", memory: 16Gi}
-          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}

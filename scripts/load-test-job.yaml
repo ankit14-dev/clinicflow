@@ -38,4 +38,4 @@ spec:
           resources:
             requests: {cpu: 50m, memory: 32Mi}
             limits: {cpu: 300m, memory: 64Mi}
-          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}

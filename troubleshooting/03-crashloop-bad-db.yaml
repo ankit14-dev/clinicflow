@@ -23,4 +23,4 @@ spec:
           env:
             - name: DATABASE_URL
               value: postgresql+psycopg://clinicflow:wrong@postgres-typo:5432/clinicflow
-          securityContext: {allowPrivilegeEscalation: false, capabilities: {drop: ["ALL"]}}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}
