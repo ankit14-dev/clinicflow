@@ -16,7 +16,7 @@ export default function Sidebar({ view, onNavigate, info, stats }) {
         <span className="brand-mark" aria-hidden="true">+</span>
         <div>
           <strong>ClinicFlow</strong>
-          <small>Sunrise Health Clinic</small>
+          <small>Sunrise Multispeciality Clinic</small>
         </div>
       </div>
 
