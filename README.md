@@ -392,7 +392,7 @@ HPA current/desired/max replicas, CPU and memory per pod.
 | M4 Docker | both Dockerfiles (multi-stage, non-root), compose | `docker compose up --build`, localhost:3000 |
 | M5 CI/CD | `.github/workflows/ci-cd.yml` | green run, GHCR packages with SHA tags |
 | M6 Trivy | gate + SARIF steps, section 8 above | Trivy step output |
-| M7 Terraform | `terraform/`, `terraform.tfvars.example` | `plan`, AWS console VPC + EKS, `destroy` complete |
+| M7 Terraform | `terraform/`, `terraform.tfvars.example`, [`docs/evidence/terraform-destroy.log`](docs/evidence/terraform-destroy.log) (69 destroyed) | `plan`, AWS console VPC + EKS, `destroy` complete |
 | M8 K8s + Helm | `k8s/`, `helm/clinicflow/`, `argocd/` | `get pods`, `get svc,ingress`, `helm list -A` + CI kind `helm list`, Argo CD Synced/Healthy, app via Ingress |
 | M9 Observability | `monitoring/`, chart ServiceMonitor + dashboard | `/metrics`, Prometheus Targets UP, Grafana panels |
-| M10 Docs + demo | this README, `demo/` (video + slides) | — |
+| M10 Docs + demo | this README, [`demo/ClinicFlow-demo.mp4`](demo/ClinicFlow-demo.mp4), [`demo/ClinicFlow-presentation.pptx`](demo/ClinicFlow-presentation.pptx) / [`.pdf`](demo/ClinicFlow-presentation.pdf) | — |
