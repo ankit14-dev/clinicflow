@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # ---- stage 2: serve it with unprivileged nginx (uid 101, port 8080) — no Node in the runtime image ----
-FROM nginxinc/nginx-unprivileged:1.30-alpine
+FROM nginxinc/nginx-unprivileged:1.31-alpine
 # where /api is proxied to: the compose service name, or the Kubernetes backend Service
 ENV BACKEND_URL=http://backend:8000
 COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
