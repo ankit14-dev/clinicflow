@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # ---- stage 2: serve it with unprivileged nginx (uid 101, port 8080) — no Node in the runtime image ----
-FROM nginxinc/nginx-unprivileged:1.30-alpine
+FROM nginxinc/nginx-unprivileged:1.31-alpine
 # Pull Alpine security fixes released after the base image was built, and drop curl (unused: the
 # healthcheck uses busybox wget). Trivy blocked the image on new brotli/curl CVEs before this.
 USER root
