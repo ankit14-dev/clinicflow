@@ -10,6 +10,10 @@ RUN npm run build
 
 # ---- stage 2: serve it with unprivileged nginx (uid 101, port 8080) — no Node in the runtime image ----
 FROM nginxinc/nginx-unprivileged:1.30-alpine
+# Pull Alpine security fixes released after the base image was built, and drop curl (unused: the
+# healthcheck uses busybox wget). Trivy blocked the image on new brotli/curl CVEs before this.
+USER root
+RUN apk upgrade --no-cache && apk del --no-cache curl
 # where /api is proxied to: the compose service name, or the Kubernetes backend Service
 ENV BACKEND_URL=http://backend:8000
 COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
