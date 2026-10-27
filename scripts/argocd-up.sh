@@ -6,7 +6,7 @@ NS=clinicflow
 
 echo "==> Argo CD"
 helm repo add argo https://argoproj.github.io/argo-helm >/dev/null
-helm repo update argo >/dev/null
+for _ in 1 2 3 4 5; do helm repo update argo >/dev/null && break; echo "  helm repo update failed, retrying..."; sleep 10; done
 helm upgrade --install argocd argo/argo-cd --version 10.10.5 -n argocd --create-namespace \
   -f argocd/argocd-values.yaml --wait --timeout 10m
 

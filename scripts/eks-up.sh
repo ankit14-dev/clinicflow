@@ -16,7 +16,7 @@ kubectl annotate storageclass gp2 storageclass.kubernetes.io/is-default-class=fa
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts >/dev/null
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx >/dev/null
-helm repo update >/dev/null
+for _ in 1 2 3 4 5; do helm repo update >/dev/null && break; echo "  helm repo update failed, retrying..."; sleep 10; done
 
 echo "==> kube-prometheus-stack (Prometheus Operator, Prometheus, Grafana) — installed first: it provides the CRDs"
 helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --version 92.9.0 \
