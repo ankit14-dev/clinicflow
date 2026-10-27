@@ -12,109 +12,109 @@ No resources found
 release "ingress-nginx" uninstalled
 ==> waiting for the load balancer to disappear
 ==> terraform destroy
-data.aws_iam_policy_document.ebs_csi_trust: Reading...
-module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
-module.eks.data.aws_partition.current[0]: Reading...
-module.eks.data.aws_caller_identity.current[0]: Reading...
 data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ebs_csi_trust: Reading...
+module.eks.data.aws_partition.current[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_caller_identity.current[0]: Reading...
 data.aws_caller_identity.current: Reading...
 aws_iam_openid_connect_provider.github[0]: Refreshing state... [id=arn:aws:iam::<account-id>:oidc-provider/token.actions.githubusercontent.com]
-module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-00a67eb71ae9f7d6f]
-module.eks.data.aws_partition.current[0]: Read complete after 0s [id=aws]
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-091520c4bce92dc32]
 data.aws_iam_policy_document.ebs_csi_trust: Read complete after 0s [id=819195744]
+module.eks.data.aws_partition.current[0]: Read complete after 0s [id=aws]
 module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2830595799]
 aws_iam_role.ebs_csi: Refreshing state... [id=clinicflow-ebs-csi]
-module.eks.aws_iam_role.this[0]: Refreshing state... [id=clinicflow-eks-cluster-d83e792737096da9e913db2f38]
+module.eks.aws_iam_role.this[0]: Refreshing state... [id=clinicflow-eks-cluster-61784d17187d52e452671c9916]
+data.aws_caller_identity.current: Read complete after 0s [id=<account-id>]
 module.eks.data.aws_caller_identity.current[0]: Read complete after 0s [id=<account-id>]
 module.eks.data.aws_iam_session_context.current[0]: Reading...
 module.eks.data.aws_iam_session_context.current[0]: Read complete after 0s [id=arn:aws:iam::<account-id>:user/terraform-student]
-data.aws_caller_identity.current: Read complete after 1s [id=<account-id>]
-data.aws_availability_zones.available: Read complete after 1s [id=ap-south-1]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-06902463b3da21aba]
+aws_security_group.ingress_public[0]: Refreshing state... [id=sg-05206a53f0c560c7c]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-02ed5236d32f9e09a]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-09629c21f66e91774]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-09fb771e06b4c8b58]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0e8b74fdafc61e5d3]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0f2ddac6d0c684f76]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0772687d2e7ba7528]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-0e125028df3662ac5]
+module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-0814234dc8b37cd41]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-0ab12da15b487f3ff]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-044f397e31af12de3]
+module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-0e2c48d2d5eab5e4f]
 data.aws_iam_policy_document.github_trust[0]: Reading...
+aws_vpc_security_group_ingress_rule.ingress_http["443"]: Refreshing state... [id=sgr-09d75bb99b94e55f9]
 data.aws_iam_policy_document.github_trust[0]: Read complete after 0s [id=985111988]
+aws_vpc_security_group_ingress_rule.ingress_http["80"]: Refreshing state... [id=sgr-04707d5c31919e2d4]
 aws_iam_role.github_deploy[0]: Refreshing state... [id=clinicflow-github-deploy]
-module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-04a442dbc6e9bf218]
-module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-0a565338305368f51]
-aws_security_group.ingress_public[0]: Refreshing state... [id=sg-0507ca305909d82e3]
-module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-0d9c0a9ea89f1fa9f]
-module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0e8a6b64699fe0b59]
-module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0152660bf8333f0d5]
-module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-04999a223a2f0a34e]
-module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0ce830dc5df6973ee]
-module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-08866a14bf99468c0]
-module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0a62e25e785238398]
-module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0aa920b6d6ce90cf5]
-module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-08d56e5731dde7e3e]
-module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-035553485911c4bc6]
-aws_vpc_security_group_ingress_rule.ingress_http["80"]: Refreshing state... [id=sgr-0867cbcbad7dbbce5]
-aws_vpc_security_group_ingress_rule.ingress_http["443"]: Refreshing state... [id=sgr-0f3cc00b1954210e6]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0da40946463da452a]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-09ba124d803568d72]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0a7bceffb24e8623c]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0197ae48c13d8fe2a]
 aws_iam_role_policy_attachment.ebs_csi: Refreshing state... [id=clinicflow-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
-module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=clinicflow-eks-cluster-d83e792737096da9e913db2f38/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
-module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-166933868]
-module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-568044049]
-module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-1445373435]
-module.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-2148192387]
-module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Refreshing state... [id=sgrule-3317235206]
-module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-4059147901]
-module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-2516961466]
-module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-727519252]
-module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-847746608]
-module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-2913769091]
-module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-3902393735]
-module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-04d681e8145da0dd1]
-module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-029b0229f7fa5587a]
-module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-1908142688]
-module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0e8a6b64699fe0b591080289494]
-module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-00e907fd8fc08035e]
-module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0c51e62616f728d98]
-module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0ddda6dc93f8573b1]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=clinicflow-eks-cluster-61784d17187d52e452671c9916/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-0c9bfc5b7a6950a11]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-02ed5236d32f9e09a1080289494]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-914665458]
+module.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-2042979700]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-964964999]
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-1407273823]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-597498018]
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-1316568429]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-1105057156]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-2277686093]
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-2268814075]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-1238894442]
+module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Refreshing state... [id=sgrule-1972667903]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-1562706252]
 module.eks.module.eks_managed_node_group["ingress"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.eks_managed_node_group["ingress"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
 module.eks.module.eks_managed_node_group["general"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
 module.eks.module.eks_managed_node_group["general"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
-module.eks.module.eks_managed_node_group["ingress"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0]: Refreshing state... [id=general-eks-node-group-93f78e048e2de297ddf9bee167]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0]: Refreshing state... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5]
-module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0ddf5b7aca6b51e7c]
-module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-035553485911c4bc61080289494]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0]: Refreshing state... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0]: Refreshing state... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0991481ef28c1fd5b]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-0ab12da15b487f3ff1080289494]
 module.eks.aws_eks_cluster.this[0]: Refreshing state... [id=clinicflow-eks]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
-module.eks.aws_eks_access_entry.this["cluster_creator"]: Refreshing state... [id=clinicflow-eks:arn:aws:iam::<account-id>:user/terraform-student]
-module.eks.aws_eks_access_entry.this["github_actions"]: Refreshing state... [id=clinicflow-eks:arn:aws:iam::<account-id>:role/clinicflow-github-deploy]
+module.eks.data.aws_eks_addon_version.this["coredns"]: Reading...
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...
 module.eks.data.aws_eks_addon_version.this["vpc-cni"]: Reading...
 module.eks.data.aws_eks_addon_version.this["kube-proxy"]: Reading...
 module.eks.data.aws_eks_addon_version.this["eks-pod-identity-agent"]: Reading...
 module.eks.data.aws_eks_addon_version.this["metrics-server"]: Reading...
-module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...
-module.eks.time_sleep.this[0]: Refreshing state... [id=2026-10-16T14:34:05Z]
-module.eks.data.aws_eks_addon_version.this["coredns"]: Reading...
-module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=7437063414076826857]
-module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=1003730456744715384]
-module.eks.module.eks_managed_node_group["general"].data.aws_ssm_parameter.ami[0]: Reading...
+module.eks.time_sleep.this[0]: Refreshing state... [id=2026-10-27T02:11:15Z]
+module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=5529822511115152993]
+module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=4585869376850139815]
 module.eks.module.eks_managed_node_group["ingress"].data.aws_ssm_parameter.ami[0]: Reading...
+module.eks.data.aws_eks_addon_version.this["eks-pod-identity-agent"]: Read complete after 0s [id=eks-pod-identity-agent]
+module.eks.module.eks_managed_node_group["general"].data.aws_ssm_parameter.ami[0]: Reading...
+module.eks.aws_eks_access_entry.this["cluster_creator"]: Refreshing state... [id=clinicflow-eks:arn:aws:iam::<account-id>:user/terraform-student]
+module.eks.data.aws_eks_addon_version.this["vpc-cni"]: Read complete after 0s [id=vpc-cni]
+module.eks.aws_eks_access_entry.this["github_actions"]: Refreshing state... [id=clinicflow-eks:arn:aws:iam::<account-id>:role/clinicflow-github-deploy]
+module.eks.data.aws_eks_addon_version.this["metrics-server"]: Read complete after 0s [id=metrics-server]
 module.eks.data.aws_eks_addon_version.this["coredns"]: Read complete after 0s [id=coredns]
-module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0]: Refreshing state... [id=lt-0c6397053bfc081ba]
-module.eks.data.aws_eks_addon_version.this["kube-proxy"]: Read complete after 1s [id=kube-proxy]
-module.eks.data.aws_eks_addon_version.this["metrics-server"]: Read complete after 1s [id=metrics-server]
-module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Refreshing state... [id=lt-0d7eba6a9d0ec8ab1]
-module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 1s [id=aws-ebs-csi-driver]
-module.eks.data.aws_eks_addon_version.this["eks-pod-identity-agent"]: Read complete after 1s [id=eks-pod-identity-agent]
-module.eks.data.aws_eks_addon_version.this["vpc-cni"]: Read complete after 1s [id=vpc-cni]
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 0s [id=aws-ebs-csi-driver]
+module.eks.module.eks_managed_node_group["ingress"].data.aws_ssm_parameter.ami[0]: Read complete after 0s [id=/aws/service/eks/optimized-ami/1.36/amazon-linux-2023/x86_64/standard/recommended/release_version]
+module.eks.data.aws_eks_addon_version.this["kube-proxy"]: Read complete after 0s [id=kube-proxy]
 module.eks.aws_eks_addon.before_compute["vpc-cni"]: Refreshing state... [id=clinicflow-eks:vpc-cni]
 module.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"]: Refreshing state... [id=clinicflow-eks:eks-pod-identity-agent]
-module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Refreshing state... [id=clinicflow-eks#arn:aws:iam::<account-id>:user/terraform-student#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
+module.eks.module.eks_managed_node_group["general"].data.aws_ssm_parameter.ami[0]: Read complete after 1s [id=/aws/service/eks/optimized-ami/1.36/amazon-linux-2023/x86_64/standard/recommended/release_version]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
 module.eks.aws_eks_access_policy_association.this["github_actions_admin"]: Refreshing state... [id=clinicflow-eks#arn:aws:iam::<account-id>:role/clinicflow-github-deploy#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
+module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Refreshing state... [id=clinicflow-eks#arn:aws:iam::<account-id>:user/terraform-student#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
 data.aws_iam_policy_document.github_deploy: Reading...
 data.aws_iam_policy_document.github_deploy: Read complete after 0s [id=3276028545]
 aws_iam_role_policy.github_deploy[0]: Refreshing state... [id=clinicflow-github-deploy:describe-eks-cluster]
-module.eks.module.eks_managed_node_group["ingress"].data.aws_ssm_parameter.ami[0]: Read complete after 2s [id=/aws/service/eks/optimized-ami/1.36/amazon-linux-2023/x86_64/standard/recommended/release_version]
-module.eks.module.eks_managed_node_group["general"].data.aws_ssm_parameter.ami[0]: Read complete after 2s [id=/aws/service/eks/optimized-ami/1.36/amazon-linux-2023/x86_64/standard/recommended/release_version]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Refreshing state... [id=clinicflow-eks:general-daf955f396767341e95b801ed9]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Refreshing state... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247]
+module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Refreshing state... [id=lt-03ec3a2a33e390637]
+module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0]: Refreshing state... [id=lt-065b494b18056f1a2]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Refreshing state... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Refreshing state... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563]
 module.eks.aws_eks_addon.this["metrics-server"]: Refreshing state... [id=clinicflow-eks:metrics-server]
 module.eks.aws_eks_addon.this["kube-proxy"]: Refreshing state... [id=clinicflow-eks:kube-proxy]
 module.eks.aws_eks_addon.this["coredns"]: Refreshing state... [id=clinicflow-eks:coredns]
@@ -166,7 +166,7 @@ Terraform will perform the following actions:
               - Version   = "2012-10-17"
             }
         ) -> null
-      - create_date           = "2026-10-16T14:24:29Z" -> null
+      - create_date           = "2026-10-27T02:02:30Z" -> null
       - force_detach_policies = false -> null
       - id                    = "clinicflow-ebs-csi" -> null
       - managed_policy_arns   = [
@@ -182,7 +182,7 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - unique_id             = "AROA2USJSR2QMBOSRMKBO" -> null
+      - unique_id             = "AROA2USJSR2QG5UBWF5WC" -> null
         # (3 unchanged attributes hidden)
     }
 
@@ -212,7 +212,7 @@ Terraform will perform the following actions:
               - Version   = "2012-10-17"
             }
         ) -> null
-      - create_date           = "2026-10-16T14:24:30Z" -> null
+      - create_date           = "2026-10-27T02:02:34Z" -> null
       - force_detach_policies = false -> null
       - id                    = "clinicflow-github-deploy" -> null
       - managed_policy_arns   = [] -> null
@@ -226,7 +226,7 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - unique_id             = "AROA2USJSR2QG2HUYZICJ" -> null
+      - unique_id             = "AROA2USJSR2QESQ7AAETN" -> null
         # (3 unchanged attributes hidden)
 
       - inline_policy {
@@ -275,10 +275,10 @@ Terraform will perform the following actions:
 
   # aws_security_group.ingress_public[0] will be destroyed
   - resource "aws_security_group" "ingress_public" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-0507ca305909d82e3" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-05206a53f0c560c7c" -> null
       - description            = "HTTP/HTTPS from the internet to the ingress-nginx edge node" -> null
       - egress                 = [] -> null
-      - id                     = "sg-0507ca305909d82e3" -> null
+      - id                     = "sg-05206a53f0c560c7c" -> null
       - ingress                = [
           - {
               - cidr_blocks      = [
@@ -318,21 +318,21 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
         # (1 unchanged attribute hidden)
     }
 
   # aws_vpc_security_group_ingress_rule.ingress_http["443"] will be destroyed
   - resource "aws_vpc_security_group_ingress_rule" "ingress_http" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group-rule/sgr-0f3cc00b1954210e6" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group-rule/sgr-09d75bb99b94e55f9" -> null
       - cidr_ipv4              = "0.0.0.0/0" -> null
       - description            = "public web traffic to ingress-nginx" -> null
       - from_port              = 443 -> null
-      - id                     = "sgr-0f3cc00b1954210e6" -> null
+      - id                     = "sgr-09d75bb99b94e55f9" -> null
       - ip_protocol            = "tcp" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-0507ca305909d82e3" -> null
-      - security_group_rule_id = "sgr-0f3cc00b1954210e6" -> null
+      - security_group_id      = "sg-05206a53f0c560c7c" -> null
+      - security_group_rule_id = "sgr-09d75bb99b94e55f9" -> null
       - tags_all               = {
           - "Environment" = "dev"
           - "ManagedBy"   = "terraform"
@@ -344,15 +344,15 @@ Terraform will perform the following actions:
 
   # aws_vpc_security_group_ingress_rule.ingress_http["80"] will be destroyed
   - resource "aws_vpc_security_group_ingress_rule" "ingress_http" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group-rule/sgr-0867cbcbad7dbbce5" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group-rule/sgr-04707d5c31919e2d4" -> null
       - cidr_ipv4              = "0.0.0.0/0" -> null
       - description            = "public web traffic to ingress-nginx" -> null
       - from_port              = 80 -> null
-      - id                     = "sgr-0867cbcbad7dbbce5" -> null
+      - id                     = "sgr-04707d5c31919e2d4" -> null
       - ip_protocol            = "tcp" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-0507ca305909d82e3" -> null
-      - security_group_rule_id = "sgr-0867cbcbad7dbbce5" -> null
+      - security_group_id      = "sg-05206a53f0c560c7c" -> null
+      - security_group_rule_id = "sgr-04707d5c31919e2d4" -> null
       - tags_all               = {
           - "Environment" = "dev"
           - "ManagedBy"   = "terraform"
@@ -364,12 +364,12 @@ Terraform will perform the following actions:
 
   # module.eks.aws_eks_access_entry.this["cluster_creator"] will be destroyed
   - resource "aws_eks_access_entry" "this" {
-      - access_entry_arn  = "arn:aws:eks:ap-south-1:<account-id>:access-entry/clinicflow-eks/user/<account-id>/terraform-student/c2d0a290-f939-cdb0-1743-bfdb90a7df7a" -> null
+      - access_entry_arn  = "arn:aws:eks:ap-south-1:<account-id>:access-entry/clinicflow-eks/user/<account-id>/terraform-student/82d0bd8f-ea13-b371-2b80-1b0acf46e2a7" -> null
       - cluster_name      = "clinicflow-eks" -> null
-      - created_at        = "2026-10-16T14:33:35Z" -> null
+      - created_at        = "2026-10-27T02:10:46Z" -> null
       - id                = "clinicflow-eks:arn:aws:iam::<account-id>:user/terraform-student" -> null
       - kubernetes_groups = [] -> null
-      - modified_at       = "2026-10-16T14:33:35Z" -> null
+      - modified_at       = "2026-10-27T02:10:46Z" -> null
       - principal_arn     = "arn:aws:iam::<account-id>:user/terraform-student" -> null
       - region            = "ap-south-1" -> null
       - tags              = {} -> null
@@ -385,12 +385,12 @@ Terraform will perform the following actions:
 
   # module.eks.aws_eks_access_entry.this["github_actions"] will be destroyed
   - resource "aws_eks_access_entry" "this" {
-      - access_entry_arn  = "arn:aws:eks:ap-south-1:<account-id>:access-entry/clinicflow-eks/role/<account-id>/clinicflow-github-deploy/bed0a290-f936-0cc5-5caa-46d120322cd0" -> null
+      - access_entry_arn  = "arn:aws:eks:ap-south-1:<account-id>:access-entry/clinicflow-eks/role/<account-id>/clinicflow-github-deploy/08d0bd8f-e9fd-73fe-4f20-3b3621a9ddd5" -> null
       - cluster_name      = "clinicflow-eks" -> null
-      - created_at        = "2026-10-16T14:33:35Z" -> null
+      - created_at        = "2026-10-27T02:10:46Z" -> null
       - id                = "clinicflow-eks:arn:aws:iam::<account-id>:role/clinicflow-github-deploy" -> null
       - kubernetes_groups = [] -> null
-      - modified_at       = "2026-10-16T14:33:35Z" -> null
+      - modified_at       = "2026-10-27T02:10:46Z" -> null
       - principal_arn     = "arn:aws:iam::<account-id>:role/clinicflow-github-deploy" -> null
       - region            = "ap-south-1" -> null
       - tags              = {} -> null
@@ -406,10 +406,10 @@ Terraform will perform the following actions:
 
   # module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"] will be destroyed
   - resource "aws_eks_access_policy_association" "this" {
-      - associated_at = "2026-10-16 14:33:36.475 +0000 UTC" -> null
+      - associated_at = "2026-10-27 02:10:50.573 +0000 UTC" -> null
       - cluster_name  = "clinicflow-eks" -> null
       - id            = "clinicflow-eks#arn:aws:iam::<account-id>:user/terraform-student#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy" -> null
-      - modified_at   = "2026-10-16 14:33:36.475 +0000 UTC" -> null
+      - modified_at   = "2026-10-27 02:10:50.573 +0000 UTC" -> null
       - policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy" -> null
       - principal_arn = "arn:aws:iam::<account-id>:user/terraform-student" -> null
       - region        = "ap-south-1" -> null
@@ -422,10 +422,10 @@ Terraform will perform the following actions:
 
   # module.eks.aws_eks_access_policy_association.this["github_actions_admin"] will be destroyed
   - resource "aws_eks_access_policy_association" "this" {
-      - associated_at = "2026-10-16 14:33:36.115 +0000 UTC" -> null
+      - associated_at = "2026-10-27 02:10:50.878 +0000 UTC" -> null
       - cluster_name  = "clinicflow-eks" -> null
       - id            = "clinicflow-eks#arn:aws:iam::<account-id>:role/clinicflow-github-deploy#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy" -> null
-      - modified_at   = "2026-10-16 14:33:36.115 +0000 UTC" -> null
+      - modified_at   = "2026-10-27 02:10:50.878 +0000 UTC" -> null
       - policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy" -> null
       - principal_arn = "arn:aws:iam::<account-id>:role/clinicflow-github-deploy" -> null
       - region        = "ap-south-1" -> null
@@ -439,8 +439,8 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"] will be destroyed
   - resource "aws_eks_addon" "before_compute" {
       - addon_name                  = "eks-pod-identity-agent" -> null
-      - addon_version               = "v1.4.0-eksbuild.4" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/eks-pod-identity-agent/c8d0a290-f9ce-308e-365d-f81ea2ff2f0c" -> null
+      - addon_version               = "v1.4.1-eksbuild.3" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/eks-pod-identity-agent/44d0bd8f-f279-9e68-6b37-29eff64c28db" -> null
       - cluster_name                = "clinicflow-eks" -> null
       - configuration_values        = jsonencode(
             {
@@ -489,9 +489,9 @@ Terraform will perform the following actions:
                 }
             }
         ) -> null
-      - created_at                  = "2026-10-16T14:33:35Z" -> null
+      - created_at                  = "2026-10-27T02:10:50Z" -> null
       - id                          = "clinicflow-eks:eks-pod-identity-agent" -> null
-      - modified_at                 = "2026-10-16T15:38:51Z" -> null
+      - modified_at                 = "2026-10-27T02:11:16Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -515,12 +515,12 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.before_compute["vpc-cni"] will be destroyed
   - resource "aws_eks_addon" "before_compute" {
       - addon_name                  = "vpc-cni" -> null
-      - addon_version               = "v1.23.2-eksbuild.3" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/vpc-cni/88d0a290-f9ce-8b6d-ff74-7392027cf8ab" -> null
+      - addon_version               = "v1.23.2-eksbuild.8" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/vpc-cni/90d0bd8f-f279-415d-8210-8613bcfdeba2" -> null
       - cluster_name                = "clinicflow-eks" -> null
-      - created_at                  = "2026-10-16T14:33:35Z" -> null
+      - created_at                  = "2026-10-27T02:10:50Z" -> null
       - id                          = "clinicflow-eks:vpc-cni" -> null
-      - modified_at                 = "2026-10-16T14:33:43Z" -> null
+      - modified_at                 = "2026-10-27T02:11:08Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -544,12 +544,12 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.this["aws-ebs-csi-driver"] will be destroyed
   - resource "aws_eks_addon" "this" {
       - addon_name                  = "aws-ebs-csi-driver" -> null
-      - addon_version               = "v1.67.0-eksbuild.1" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/aws-ebs-csi-driver/a6d0a292-167b-2b66-296e-d64e3db78ab7" -> null
+      - addon_version               = "v1.67.2-eksbuild.1" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/aws-ebs-csi-driver/9ad0bd90-d50c-6f65-3285-7f2faf30d7f1" -> null
       - cluster_name                = "clinicflow-eks" -> null
-      - created_at                  = "2026-10-16T14:36:02Z" -> null
+      - created_at                  = "2026-10-27T02:12:47Z" -> null
       - id                          = "clinicflow-eks:aws-ebs-csi-driver" -> null
-      - modified_at                 = "2026-10-16T14:36:43Z" -> null
+      - modified_at                 = "2026-10-27T02:13:28Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -578,12 +578,12 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.this["coredns"] will be destroyed
   - resource "aws_eks_addon" "this" {
       - addon_name                  = "coredns" -> null
-      - addon_version               = "v1.14.7-eksbuild.11" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/coredns/6cd0a292-168a-e528-1cc3-58e326d3331b" -> null
+      - addon_version               = "v1.14.7-eksbuild.22" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/coredns/3ed0bd90-d50b-404f-d475-551862f749c3" -> null
       - cluster_name                = "clinicflow-eks" -> null
-      - created_at                  = "2026-10-16T14:36:01Z" -> null
+      - created_at                  = "2026-10-27T02:12:46Z" -> null
       - id                          = "clinicflow-eks:coredns" -> null
-      - modified_at                 = "2026-10-16T14:36:14Z" -> null
+      - modified_at                 = "2026-10-27T02:12:59Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -607,12 +607,12 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.this["kube-proxy"] will be destroyed
   - resource "aws_eks_addon" "this" {
       - addon_name                  = "kube-proxy" -> null
-      - addon_version               = "v1.36.0-eksbuild.48" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/kube-proxy/78d0a292-169a-6a85-6009-8def3e98acf0" -> null
+      - addon_version               = "v1.36.0-eksbuild.58" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/kube-proxy/48d0bd90-d509-4eca-009b-9e9ec0658551" -> null
       - cluster_name                = "clinicflow-eks" -> null
-      - created_at                  = "2026-10-16T14:36:01Z" -> null
+      - created_at                  = "2026-10-27T02:12:46Z" -> null
       - id                          = "clinicflow-eks:kube-proxy" -> null
-      - modified_at                 = "2026-10-16T14:36:18Z" -> null
+      - modified_at                 = "2026-10-27T02:13:03Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -636,12 +636,12 @@ Terraform will perform the following actions:
   # module.eks.aws_eks_addon.this["metrics-server"] will be destroyed
   - resource "aws_eks_addon" "this" {
       - addon_name                  = "metrics-server" -> null
-      - addon_version               = "v0.9.0-eksbuild.13" -> null
-      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/metrics-server/56d0a292-1686-e765-764d-b9988dfa4fc4" -> null
+      - addon_version               = "v0.9.0-eksbuild.14" -> null
+      - arn                         = "arn:aws:eks:ap-south-1:<account-id>:addon/clinicflow-eks/metrics-server/60d0bd90-d509-b522-a22d-e6e94ca338be" -> null
       - cluster_name                = "clinicflow-eks" -> null
-      - created_at                  = "2026-10-16T14:36:01Z" -> null
+      - created_at                  = "2026-10-27T02:12:46Z" -> null
       - id                          = "clinicflow-eks:metrics-server" -> null
-      - modified_at                 = "2026-10-16T14:36:36Z" -> null
+      - modified_at                 = "2026-10-27T02:13:21Z" -> null
       - preserve                    = true -> null
       - region                      = "ap-south-1" -> null
       - resolve_conflicts_on_create = "NONE" -> null
@@ -668,27 +668,27 @@ Terraform will perform the following actions:
       - bootstrap_self_managed_addons = false -> null
       - certificate_authority         = [
           - {
-              - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNakNDQWhxZ0F3SUJBZ0lSQU9DYVV0dkZpblF0dTRFYk05bnhDMUF3RFFZSktvWklodmNOQVFFTEJRQXcKSnpFUU1BNEdBMVVFQ2hNSFFWZFRJRVZMVXpFVE1CRUdBMVVFQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TmpFdwpNVFl4TkRJMU1ESmFGdzB6TVRFd01UVXhOREkxTURKYU1DY3hFREFPQmdOVkJBb1RCMEZYVXlCRlMxTXhFekFSCkJnTlZCQU1UQ210MVltVnlibVYwWlhNd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUIKQVFDd0IzWllGRW9IajM1UFBHeEZQVitCWkgxT2E4QUIrcCtiMWs4Q1N2Vk1KTm1aU0hPOHVvSXFhVHB2OFVGcQpSTk1pYVdUNENsWi94ZW9MRVl4SU1vWk45dXpZVDNCT3ZyeXJFRmhDNWQxbDFZRGlucDhhbU1ETEFVbWliK2VzCmZ5ejZEemE1enY3czF4K2VHK05qL3ExUERTNmtuWFQwbHRMUkRSMmtFOTBXYmhBYlhuNUtFQm5vT3ZQMVIzeVIKdGdZelI1THJnY1ByYVZ2ZnZsaGY3NXhwZXVGelJEOWhDdnR5KzRZVVpkK2kwK3VoTDRJVlQ3bm9rZlpDL3NEeQppVEZaajhRVWN4K0ZLR0RLL014NkxQcWZGcTh5L2pSeVNSKytqTU1WU0ZtMEVuKzhkRGxDSnFSN1lKR0t3anhECmtyQ3dlSEhLZnpMZUUwY1dFeHhOUHgveEFnTUJBQUdqV1RCWE1BNEdBMVVkRHdFQi93UUVBd0lDcERBUEJnTlYKSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCU0dmQ041RHZmdVFQU1FVK1kxMk5wdDBmSkRGakFWQmdOVgpIUkVFRGpBTWdncHJkV0psY201bGRHVnpNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNzaEZJcEEyc3lsdGV1Ckx6cVh3L29JYm1UK2Z1RnhjSXhPQVZjRHVRbWx3K3hsUE9PdW4zZ0ZYQTdhNUVnTHBFQXo1V25JNEtwMGRscEEKZXB2MjBZVzRFeDJEVmNKd1NTTExPVllyWHVDd2E1bTUwQmFpM28wNVFDbUxPWGdnd3d0VTlzOTlYaEF5a2l5UwpIZmhmNjcrN3o3ZWJIVG1lNHdSaldwVDRaUExrZStmdHRmcHNNUzlVVzk0OCsrWW5ybTdYNkxSbllCQWoxYmRkClhXYkdDK3FKRkN3SmlNU3ZLT3AxbGdKWFRsLzlDTFE5TmJuekYzYVUzRE5CYnZzaVpjV3JuT2NRK1Q1RWthMHQKNmJsQW5TZlROWG1DbWVsL1BVSTJ0OEo4cnQ3dVBsNUJuZEJUL0xobXg3K0tQd0RubFJxUXEwM2U5Y1ZzcUo4Uwo1OUpmVktLYQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+              - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lRTUk1WWtzS3dESTVEbEVwRmFabFJaREFOQmdrcWhraUc5dzBCQVFzRkFEQW4KTVJBd0RnWURWUVFLRXdkQlYxTWdSVXRUTVJNd0VRWURWUVFERXdwcmRXSmxjbTVsZEdWek1CNFhEVEkyTVRBeQpOekF5TURJMU5sb1hEVE14TVRBeU5qQXlNREkxTmxvd0p6RVFNQTRHQTFVRUNoTUhRVmRUSUVWTFV6RVRNQkVHCkExVUVBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQUtxdmgyZHJoU096amtDZkZKM0I1RVg4QlF1c3dnOWRLQ3J1TkpERXBaOWRad1IxaXJSVWV1aG8vMDNvcmhNSApGQVRrVHRpd2hDbkV6Y2k5SFoyRUhYNzJ2UUdTTngzeHJCNldZS21sWEtSODRXY05WUERuSmV3TitTY2hZaG1CCmI2Sm84akQzcmlkU01LV2t4Y3oyaFpyUTBMOTFYaVhSZGFhdWZGZEduUUZjL1ArTkhPVElNWDJVakhiVkVtT3gKOHh4RDdUdUF0dWE5ZDh5Vm9WMit0V1RXYTVYaXdBSWUrTTFoUXRjMWdicUJrcERhdkc2ZlNIS2I4UVR5RUVwSwo2elVCOXhXL1FvQzl0ai9kL1dhMVc3TE8yTzZ1RWZObVc2UW95WjRtTkw2SzRnemRveXM3bVMyaXd2Q1d1SWdXCno2bXl2YUFRcGVBMWlBR0lyWmpKUy9FQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWQKRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZGWWV6K3Z2akpKK1d6K0NUNmk5NW9HS2VOVFRNQlVHQTFVZApFUVFPTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRmEvRWJ4eWk3dHVhV1JWCi9xWndWcUw5dUZTbk9FbXROSWdYUmUxRnFTNnlPUVB3K2lDb1p3QVZHbG1qTlhKL1dxbjRUS0tkSVZLY2wvek0KVVZHZHAzNnNwNjZKRnNIWjk5RmZHV01uZGJLdzBKYWl3VlB2NXNRZythR2pPRU01ZldhNGtFRWV2SlJXU2NabgpFQmtFM09iU2lmUFkwZ2tuaS9jR0krZHl5WmxBYnJqVnc1RnJsTDNyZUxlM3BiNXdhQkxPN05haUZQNThXQUVBClAvaERyUzNlU2RFOTdiZGhnQmUyR2tPSGFxN0RLZnI3MW5TUlhZakxHbmxoMmJSNWpsUExQTmpDRmhBeGhWbDUKcGJpakp6T1hvTGlZenlWcVlrUHY1NTVNYkhqZ2NaUlVDbHVHMW5CcHNBMTNjVnQ5K1AzOHRTZGhKK1RZb0psQgptMU9lMEhvPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
             },
         ] -> null
-      - created_at                    = "2026-10-16T14:24:55Z" -> null
+      - created_at                    = "2026-10-27T02:02:49Z" -> null
       - deletion_protection           = false -> null
       - enabled_cluster_log_types     = [] -> null
-      - endpoint                      = "https://156ADE2F417AEFA349F1D05C91A60DA4.gr7.ap-south-1.eks.amazonaws.com" -> null
+      - endpoint                      = "https://F7A5232589C358A118541F6C8EF682C0.gr7.ap-south-1.eks.amazonaws.com" -> null
       - id                            = "clinicflow-eks" -> null
       - identity                      = [
           - {
               - oidc = [
                   - {
-                      - issuer = "https://oidc.eks.ap-south-1.amazonaws.com/id/156ADE2F417AEFA349F1D05C91A60DA4"
+                      - issuer = "https://oidc.eks.ap-south-1.amazonaws.com/id/F7A5232589C358A118541F6C8EF682C0"
                     },
                 ]
             },
         ] -> null
       - name                          = "clinicflow-eks" -> null
-      - platform_version              = "eks.14" -> null
+      - platform_version              = "eks.15" -> null
       - region                        = "ap-south-1" -> null
-      - role_arn                      = "arn:aws:iam::<account-id>:role/clinicflow-eks-cluster-d83e792737096da9e913db2f38" -> null
+      - role_arn                      = "arn:aws:iam::<account-id>:role/clinicflow-eks-cluster-61784d17187d52e452671c9916" -> null
       - status                        = "ACTIVE" -> null
       - tags                          = {} -> null
       - tags_all                      = {
@@ -770,7 +770,7 @@ Terraform will perform the following actions:
         }
 
       - vpc_config {
-          - cluster_security_group_id = "sg-0b2d26aa446d54ecf" -> null
+          - cluster_security_group_id = "sg-0fa57da23869de402" -> null
           - control_plane_egress_mode = "AWS_MANAGED" -> null
           - endpoint_private_access   = true -> null
           - endpoint_public_access    = true -> null
@@ -778,19 +778,19 @@ Terraform will perform the following actions:
               - "0.0.0.0/0",
             ] -> null
           - security_group_ids        = [
-              - "sg-0a565338305368f51",
+              - "sg-0e2c48d2d5eab5e4f",
             ] -> null
           - subnet_ids                = [
-              - "subnet-0a62e25e785238398",
-              - "subnet-0aa920b6d6ce90cf5",
+              - "subnet-0e8b74fdafc61e5d3",
+              - "subnet-0f2ddac6d0c684f76",
             ] -> null
-          - vpc_id                    = "vpc-00a67eb71ae9f7d6f" -> null
+          - vpc_id                    = "vpc-091520c4bce92dc32" -> null
         }
     }
 
   # module.eks.aws_iam_role.this[0] will be destroyed
   - resource "aws_iam_role" "this" {
-      - arn                   = "arn:aws:iam::<account-id>:role/clinicflow-eks-cluster-d83e792737096da9e913db2f38" -> null
+      - arn                   = "arn:aws:iam::<account-id>:role/clinicflow-eks-cluster-61784d17187d52e452671c9916" -> null
       - assume_role_policy    = jsonencode(
             {
               - Statement = [
@@ -809,14 +809,14 @@ Terraform will perform the following actions:
               - Version   = "2012-10-17"
             }
         ) -> null
-      - create_date           = "2026-10-16T14:24:29Z" -> null
+      - create_date           = "2026-10-27T02:02:30Z" -> null
       - force_detach_policies = true -> null
-      - id                    = "clinicflow-eks-cluster-d83e792737096da9e913db2f38" -> null
+      - id                    = "clinicflow-eks-cluster-61784d17187d52e452671c9916" -> null
       - managed_policy_arns   = [
           - "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
         ] -> null
       - max_session_duration  = 3600 -> null
-      - name                  = "clinicflow-eks-cluster-d83e792737096da9e913db2f38" -> null
+      - name                  = "clinicflow-eks-cluster-61784d17187d52e452671c9916" -> null
       - name_prefix           = "clinicflow-eks-cluster-" -> null
       - path                  = "/" -> null
       - tags                  = {} -> null
@@ -826,23 +826,23 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - unique_id             = "AROA2USJSR2QB6ZOFW5JW" -> null
+      - unique_id             = "AROA2USJSR2QPUODZDWSA" -> null
         # (2 unchanged attributes hidden)
     }
 
   # module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "clinicflow-eks-cluster-d83e792737096da9e913db2f38/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - id         = "clinicflow-eks-cluster-61784d17187d52e452671c9916/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
-      - role       = "clinicflow-eks-cluster-d83e792737096da9e913db2f38" -> null
+      - role       = "clinicflow-eks-cluster-61784d17187d52e452671c9916" -> null
     }
 
   # module.eks.aws_security_group.cluster[0] will be destroyed
   - resource "aws_security_group" "cluster" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-0a565338305368f51" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-0e2c48d2d5eab5e4f" -> null
       - description            = "EKS cluster security group" -> null
       - egress                 = [] -> null
-      - id                     = "sg-0a565338305368f51" -> null
+      - id                     = "sg-0e2c48d2d5eab5e4f" -> null
       - ingress                = [
           - {
               - cidr_blocks      = []
@@ -852,13 +852,13 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-04999a223a2f0a34e",
+                  - "sg-0814234dc8b37cd41",
                 ]
               - self             = false
               - to_port          = 443
             },
         ] -> null
-      - name                   = "clinicflow-eks-cluster-0085da10ffee90bbae02a500b1" -> null
+      - name                   = "clinicflow-eks-cluster-ae5fd0a5a460a233fadce0743c" -> null
       - name_prefix            = "clinicflow-eks-cluster-" -> null
       - owner_id               = "<account-id>" -> null
       - region                 = "ap-south-1" -> null
@@ -873,12 +873,12 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.eks.aws_security_group.node[0] will be destroyed
   - resource "aws_security_group" "node" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-04999a223a2f0a34e" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-0814234dc8b37cd41" -> null
       - description            = "EKS node shared security group" -> null
       - egress                 = [
           - {
@@ -895,7 +895,7 @@ Terraform will perform the following actions:
               - to_port          = 0
             },
         ] -> null
-      - id                     = "sg-04999a223a2f0a34e" -> null
+      - id                     = "sg-0814234dc8b37cd41" -> null
       - ingress                = [
           - {
               - cidr_blocks      = []
@@ -905,7 +905,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 10251
@@ -918,7 +918,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 4443
@@ -931,7 +931,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 6443
@@ -944,7 +944,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 8443
@@ -957,7 +957,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 9443
@@ -970,7 +970,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 443
@@ -983,7 +983,7 @@ Terraform will perform the following actions:
               - prefix_list_ids  = []
               - protocol         = "tcp"
               - security_groups  = [
-                  - "sg-0a565338305368f51",
+                  - "sg-0e2c48d2d5eab5e4f",
                 ]
               - self             = false
               - to_port          = 10250
@@ -1022,7 +1022,7 @@ Terraform will perform the following actions:
               - to_port          = 65535
             },
         ] -> null
-      - name                   = "clinicflow-eks-node-16935c6840d6f5440a9d340c3b" -> null
+      - name                   = "clinicflow-eks-node-5e9166523c90fc3e03f738336e" -> null
       - name_prefix            = "clinicflow-eks-node-" -> null
       - owner_id               = "<account-id>" -> null
       - region                 = "ap-south-1" -> null
@@ -1039,20 +1039,20 @@ Terraform will perform the following actions:
           - "Project"                              = "clinicflow"
           - "kubernetes.io/cluster/clinicflow-eks" = "owned"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.eks.aws_security_group_rule.cluster["ingress_nodes_443"] will be destroyed
   - resource "aws_security_group_rule" "cluster" {
       - description              = "Node groups to cluster API" -> null
       - from_port                = 443 -> null
-      - id                       = "sgrule-1908142688" -> null
+      - id                       = "sgrule-914665458" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-0a565338305368f51" -> null
-      - security_group_rule_id   = "sgr-0a0a47e1b293c4a17" -> null
+      - security_group_id        = "sg-0e2c48d2d5eab5e4f" -> null
+      - security_group_rule_id   = "sgr-01a23cd71269fd2bb" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-04999a223a2f0a34e" -> null
+      - source_security_group_id = "sg-0814234dc8b37cd41" -> null
       - to_port                  = 443 -> null
       - type                     = "ingress" -> null
     }
@@ -1064,11 +1064,11 @@ Terraform will perform the following actions:
         ] -> null
       - description            = "Allow all egress" -> null
       - from_port              = 0 -> null
-      - id                     = "sgrule-2148192387" -> null
+      - id                     = "sgrule-2042979700" -> null
       - protocol               = "-1" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id = "sgr-01fba2cf2ccac6ce2" -> null
+      - security_group_id      = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id = "sgr-0c2c2c5dc8a43d7e2" -> null
       - self                   = false -> null
       - to_port                = 0 -> null
       - type                   = "egress" -> null
@@ -1078,13 +1078,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node 10251/tcp webhook" -> null
       - from_port                = 10251 -> null
-      - id                       = "sgrule-3317235206" -> null
+      - id                       = "sgrule-1972667903" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-0b38cce00cf4107db" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-00ceb38acf5ebc067" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 10251 -> null
       - type                     = "ingress" -> null
     }
@@ -1093,13 +1093,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node groups" -> null
       - from_port                = 443 -> null
-      - id                       = "sgrule-727519252" -> null
+      - id                       = "sgrule-1238894442" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-071ddeb611ee88ff3" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-0fe9f9cb04769ab95" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 443 -> null
       - type                     = "ingress" -> null
     }
@@ -1108,13 +1108,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node 4443/tcp webhook" -> null
       - from_port                = 4443 -> null
-      - id                       = "sgrule-3902393735" -> null
+      - id                       = "sgrule-2268814075" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-06cac574c57694d9b" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-0419182b0ca152bd0" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 4443 -> null
       - type                     = "ingress" -> null
     }
@@ -1123,13 +1123,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node 6443/tcp webhook" -> null
       - from_port                = 6443 -> null
-      - id                       = "sgrule-568044049" -> null
+      - id                       = "sgrule-1316568429" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-04aaef85a2b6b8212" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-037673f35d1476732" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 6443 -> null
       - type                     = "ingress" -> null
     }
@@ -1138,13 +1138,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node 8443/tcp webhook" -> null
       - from_port                = 8443 -> null
-      - id                       = "sgrule-847746608" -> null
+      - id                       = "sgrule-1562706252" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-082e2aa7e171a914c" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-0a45317442604567c" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 8443 -> null
       - type                     = "ingress" -> null
     }
@@ -1153,13 +1153,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node 9443/tcp webhook" -> null
       - from_port                = 9443 -> null
-      - id                       = "sgrule-1445373435" -> null
+      - id                       = "sgrule-964964999" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-0ded58bc1319b83fd" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-06e4bf962518b1014" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 9443 -> null
       - type                     = "ingress" -> null
     }
@@ -1168,13 +1168,13 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description              = "Cluster API to node kubelets" -> null
       - from_port                = 10250 -> null
-      - id                       = "sgrule-4059147901" -> null
+      - id                       = "sgrule-1105057156" -> null
       - protocol                 = "tcp" -> null
       - region                   = "ap-south-1" -> null
-      - security_group_id        = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id   = "sgr-06175c25d5f40a856" -> null
+      - security_group_id        = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id   = "sgr-09fc4695181433eaa" -> null
       - self                     = false -> null
-      - source_security_group_id = "sg-0a565338305368f51" -> null
+      - source_security_group_id = "sg-0e2c48d2d5eab5e4f" -> null
       - to_port                  = 10250 -> null
       - type                     = "ingress" -> null
     }
@@ -1183,11 +1183,11 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description            = "Node to node ingress on ephemeral ports" -> null
       - from_port              = 1025 -> null
-      - id                     = "sgrule-2516961466" -> null
+      - id                     = "sgrule-1407273823" -> null
       - protocol               = "tcp" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id = "sgr-0e139e55f751666b9" -> null
+      - security_group_id      = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id = "sgr-043d727241087f054" -> null
       - self                   = true -> null
       - to_port                = 65535 -> null
       - type                   = "ingress" -> null
@@ -1197,11 +1197,11 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description            = "Node to node CoreDNS" -> null
       - from_port              = 53 -> null
-      - id                     = "sgrule-2913769091" -> null
+      - id                     = "sgrule-2277686093" -> null
       - protocol               = "tcp" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id = "sgr-0028732b7db4001a5" -> null
+      - security_group_id      = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id = "sgr-0eb5b6353b4adb337" -> null
       - self                   = true -> null
       - to_port                = 53 -> null
       - type                   = "ingress" -> null
@@ -1211,11 +1211,11 @@ Terraform will perform the following actions:
   - resource "aws_security_group_rule" "node" {
       - description            = "Node to node CoreDNS UDP" -> null
       - from_port              = 53 -> null
-      - id                     = "sgrule-166933868" -> null
+      - id                     = "sgrule-597498018" -> null
       - protocol               = "udp" -> null
       - region                 = "ap-south-1" -> null
-      - security_group_id      = "sg-04999a223a2f0a34e" -> null
-      - security_group_rule_id = "sgr-0e36d503e8028e660" -> null
+      - security_group_id      = "sg-0814234dc8b37cd41" -> null
+      - security_group_rule_id = "sgr-0809b05cf00e47da4" -> null
       - self                   = true -> null
       - to_port                = 53 -> null
       - type                   = "ingress" -> null
@@ -1224,10 +1224,10 @@ Terraform will perform the following actions:
   # module.eks.time_sleep.this[0] will be destroyed
   - resource "time_sleep" "this" {
       - create_duration = "30s" -> null
-      - id              = "2026-10-16T14:34:05Z" -> null
+      - id              = "2026-10-27T02:11:15Z" -> null
       - triggers        = {
-          - "certificate_authority_data" = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNakNDQWhxZ0F3SUJBZ0lSQU9DYVV0dkZpblF0dTRFYk05bnhDMUF3RFFZSktvWklodmNOQVFFTEJRQXcKSnpFUU1BNEdBMVVFQ2hNSFFWZFRJRVZMVXpFVE1CRUdBMVVFQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TmpFdwpNVFl4TkRJMU1ESmFGdzB6TVRFd01UVXhOREkxTURKYU1DY3hFREFPQmdOVkJBb1RCMEZYVXlCRlMxTXhFekFSCkJnTlZCQU1UQ210MVltVnlibVYwWlhNd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUIKQVFDd0IzWllGRW9IajM1UFBHeEZQVitCWkgxT2E4QUIrcCtiMWs4Q1N2Vk1KTm1aU0hPOHVvSXFhVHB2OFVGcQpSTk1pYVdUNENsWi94ZW9MRVl4SU1vWk45dXpZVDNCT3ZyeXJFRmhDNWQxbDFZRGlucDhhbU1ETEFVbWliK2VzCmZ5ejZEemE1enY3czF4K2VHK05qL3ExUERTNmtuWFQwbHRMUkRSMmtFOTBXYmhBYlhuNUtFQm5vT3ZQMVIzeVIKdGdZelI1THJnY1ByYVZ2ZnZsaGY3NXhwZXVGelJEOWhDdnR5KzRZVVpkK2kwK3VoTDRJVlQ3bm9rZlpDL3NEeQppVEZaajhRVWN4K0ZLR0RLL014NkxQcWZGcTh5L2pSeVNSKytqTU1WU0ZtMEVuKzhkRGxDSnFSN1lKR0t3anhECmtyQ3dlSEhLZnpMZUUwY1dFeHhOUHgveEFnTUJBQUdqV1RCWE1BNEdBMVVkRHdFQi93UUVBd0lDcERBUEJnTlYKSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCU0dmQ041RHZmdVFQU1FVK1kxMk5wdDBmSkRGakFWQmdOVgpIUkVFRGpBTWdncHJkV0psY201bGRHVnpNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNzaEZJcEEyc3lsdGV1Ckx6cVh3L29JYm1UK2Z1RnhjSXhPQVZjRHVRbWx3K3hsUE9PdW4zZ0ZYQTdhNUVnTHBFQXo1V25JNEtwMGRscEEKZXB2MjBZVzRFeDJEVmNKd1NTTExPVllyWHVDd2E1bTUwQmFpM28wNVFDbUxPWGdnd3d0VTlzOTlYaEF5a2l5UwpIZmhmNjcrN3o3ZWJIVG1lNHdSaldwVDRaUExrZStmdHRmcHNNUzlVVzk0OCsrWW5ybTdYNkxSbllCQWoxYmRkClhXYkdDK3FKRkN3SmlNU3ZLT3AxbGdKWFRsLzlDTFE5TmJuekYzYVUzRE5CYnZzaVpjV3JuT2NRK1Q1RWthMHQKNmJsQW5TZlROWG1DbWVsL1BVSTJ0OEo4cnQ3dVBsNUJuZEJUL0xobXg3K0tQd0RubFJxUXEwM2U5Y1ZzcUo4Uwo1OUpmVktLYQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
-          - "endpoint"                   = "https://156ADE2F417AEFA349F1D05C91A60DA4.gr7.ap-south-1.eks.amazonaws.com"
+          - "certificate_authority_data" = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lRTUk1WWtzS3dESTVEbEVwRmFabFJaREFOQmdrcWhraUc5dzBCQVFzRkFEQW4KTVJBd0RnWURWUVFLRXdkQlYxTWdSVXRUTVJNd0VRWURWUVFERXdwcmRXSmxjbTVsZEdWek1CNFhEVEkyTVRBeQpOekF5TURJMU5sb1hEVE14TVRBeU5qQXlNREkxTmxvd0p6RVFNQTRHQTFVRUNoTUhRVmRUSUVWTFV6RVRNQkVHCkExVUVBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQUtxdmgyZHJoU096amtDZkZKM0I1RVg4QlF1c3dnOWRLQ3J1TkpERXBaOWRad1IxaXJSVWV1aG8vMDNvcmhNSApGQVRrVHRpd2hDbkV6Y2k5SFoyRUhYNzJ2UUdTTngzeHJCNldZS21sWEtSODRXY05WUERuSmV3TitTY2hZaG1CCmI2Sm84akQzcmlkU01LV2t4Y3oyaFpyUTBMOTFYaVhSZGFhdWZGZEduUUZjL1ArTkhPVElNWDJVakhiVkVtT3gKOHh4RDdUdUF0dWE5ZDh5Vm9WMit0V1RXYTVYaXdBSWUrTTFoUXRjMWdicUJrcERhdkc2ZlNIS2I4UVR5RUVwSwo2elVCOXhXL1FvQzl0ai9kL1dhMVc3TE8yTzZ1RWZObVc2UW95WjRtTkw2SzRnemRveXM3bVMyaXd2Q1d1SWdXCno2bXl2YUFRcGVBMWlBR0lyWmpKUy9FQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWQKRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZGWWV6K3Z2akpKK1d6K0NUNmk5NW9HS2VOVFRNQlVHQTFVZApFUVFPTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRmEvRWJ4eWk3dHVhV1JWCi9xWndWcUw5dUZTbk9FbXROSWdYUmUxRnFTNnlPUVB3K2lDb1p3QVZHbG1qTlhKL1dxbjRUS0tkSVZLY2wvek0KVVZHZHAzNnNwNjZKRnNIWjk5RmZHV01uZGJLdzBKYWl3VlB2NXNRZythR2pPRU01ZldhNGtFRWV2SlJXU2NabgpFQmtFM09iU2lmUFkwZ2tuaS9jR0krZHl5WmxBYnJqVnc1RnJsTDNyZUxlM3BiNXdhQkxPN05haUZQNThXQUVBClAvaERyUzNlU2RFOTdiZGhnQmUyR2tPSGFxN0RLZnI3MW5TUlhZakxHbmxoMmJSNWpsUExQTmpDRmhBeGhWbDUKcGJpakp6T1hvTGlZenlWcVlrUHY1NTVNYkhqZ2NaUlVDbHVHMW5CcHNBMTNjVnQ5K1AzOHRTZGhKK1RZb0psQgptMU9lMEhvPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          - "endpoint"                   = "https://F7A5232589C358A118541F6C8EF682C0.gr7.ap-south-1.eks.amazonaws.com"
           - "kubernetes_version"         = "1.36"
           - "name"                       = "clinicflow-eks"
           - "service_cidr"               = "172.20.0.0/16"
@@ -1236,16 +1236,16 @@ Terraform will perform the following actions:
 
   # module.vpc.aws_default_network_acl.this[0] will be destroyed
   - resource "aws_default_network_acl" "this" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:network-acl/acl-0d9c0a9ea89f1fa9f" -> null
-      - default_network_acl_id = "acl-0d9c0a9ea89f1fa9f" -> null
-      - id                     = "acl-0d9c0a9ea89f1fa9f" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:network-acl/acl-09fb771e06b4c8b58" -> null
+      - default_network_acl_id = "acl-09fb771e06b4c8b58" -> null
+      - id                     = "acl-09fb771e06b4c8b58" -> null
       - owner_id               = "<account-id>" -> null
       - region                 = "ap-south-1" -> null
       - subnet_ids             = [
-          - "subnet-08866a14bf99468c0",
-          - "subnet-0a62e25e785238398",
-          - "subnet-0aa920b6d6ce90cf5",
-          - "subnet-0ce830dc5df6973ee",
+          - "subnet-0772687d2e7ba7528",
+          - "subnet-0e125028df3662ac5",
+          - "subnet-0e8b74fdafc61e5d3",
+          - "subnet-0f2ddac6d0c684f76",
         ] -> null
       - tags                   = {
           - "Name" = "clinicflow-vpc-default"
@@ -1257,7 +1257,7 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
 
       - egress {
           - action          = "allow" -> null
@@ -1308,9 +1308,9 @@ Terraform will perform the following actions:
 
   # module.vpc.aws_default_route_table.default[0] will be destroyed
   - resource "aws_default_route_table" "default" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-04a442dbc6e9bf218" -> null
-      - default_route_table_id = "rtb-04a442dbc6e9bf218" -> null
-      - id                     = "rtb-04a442dbc6e9bf218" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-09629c21f66e91774" -> null
+      - default_route_table_id = "rtb-09629c21f66e91774" -> null
+      - id                     = "rtb-09629c21f66e91774" -> null
       - owner_id               = "<account-id>" -> null
       - propagating_vgws       = [] -> null
       - region                 = "ap-south-1" -> null
@@ -1325,7 +1325,7 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
 
       - timeouts {
           - create = "5m" -> null
@@ -1335,10 +1335,10 @@ Terraform will perform the following actions:
 
   # module.vpc.aws_default_security_group.this[0] will be destroyed
   - resource "aws_default_security_group" "this" {
-      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-0152660bf8333f0d5" -> null
+      - arn                    = "arn:aws:ec2:ap-south-1:<account-id>:security-group/sg-06902463b3da21aba" -> null
       - description            = "default VPC security group" -> null
       - egress                 = [] -> null
-      - id                     = "sg-0152660bf8333f0d5" -> null
+      - id                     = "sg-06902463b3da21aba" -> null
       - ingress                = [] -> null
       - name                   = "default" -> null
       - owner_id               = "<account-id>" -> null
@@ -1354,23 +1354,23 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                 = "vpc-091520c4bce92dc32" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.vpc.aws_eip.nat[0] will be destroyed
   - resource "aws_eip" "nat" {
-      - allocation_id            = "eipalloc-00e907fd8fc08035e" -> null
-      - arn                      = "arn:aws:ec2:ap-south-1:<account-id>:elastic-ip/eipalloc-00e907fd8fc08035e" -> null
-      - association_id           = "eipassoc-070aac354309424b5" -> null
+      - allocation_id            = "eipalloc-0c9bfc5b7a6950a11" -> null
+      - arn                      = "arn:aws:ec2:ap-south-1:<account-id>:elastic-ip/eipalloc-0c9bfc5b7a6950a11" -> null
+      - association_id           = "eipassoc-0808f8b812a9cd739" -> null
       - domain                   = "vpc" -> null
-      - id                       = "eipalloc-00e907fd8fc08035e" -> null
+      - id                       = "eipalloc-0c9bfc5b7a6950a11" -> null
       - network_border_group     = "ap-south-1" -> null
-      - network_interface        = "eni-02392bf77b2f631b8" -> null
-      - private_dns              = "ip-10-40-100-31.ap-south-1.compute.internal" -> null
-      - private_ip               = "10.40.100.31" -> null
-      - public_dns               = "ec2-13-205-229-146.ap-south-1.compute.amazonaws.com" -> null
-      - public_ip                = "13.205.229.146" -> null
+      - network_interface        = "eni-0641251615e0c81a6" -> null
+      - private_dns              = "ip-10-40-100-122.ap-south-1.compute.internal" -> null
+      - private_ip               = "10.40.100.122" -> null
+      - public_dns               = "ec2-15-252-166-183.ap-south-1.compute.amazonaws.com" -> null
+      - public_ip                = "15.252.166.183" -> null
       - public_ipv4_pool         = "amazon" -> null
       - region                   = "ap-south-1" -> null
       - tags                     = {
@@ -1388,8 +1388,8 @@ Terraform will perform the following actions:
 
   # module.vpc.aws_internet_gateway.this[0] will be destroyed
   - resource "aws_internet_gateway" "this" {
-      - arn      = "arn:aws:ec2:ap-south-1:<account-id>:internet-gateway/igw-08d56e5731dde7e3e" -> null
-      - id       = "igw-08d56e5731dde7e3e" -> null
+      - arn      = "arn:aws:ec2:ap-south-1:<account-id>:internet-gateway/igw-044f397e31af12de3" -> null
+      - id       = "igw-044f397e31af12de3" -> null
       - owner_id = "<account-id>" -> null
       - region   = "ap-south-1" -> null
       - tags     = {
@@ -1402,25 +1402,25 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id   = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id   = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.vpc.aws_nat_gateway.this[0] will be destroyed
   - resource "aws_nat_gateway" "this" {
-      - allocation_id                      = "eipalloc-00e907fd8fc08035e" -> null
-      - association_id                     = "eipassoc-070aac354309424b5" -> null
+      - allocation_id                      = "eipalloc-0c9bfc5b7a6950a11" -> null
+      - association_id                     = "eipassoc-0808f8b812a9cd739" -> null
       - availability_mode                  = "zonal" -> null
       - connectivity_type                  = "public" -> null
-      - id                                 = "nat-0ddf5b7aca6b51e7c" -> null
-      - network_interface_id               = "eni-02392bf77b2f631b8" -> null
-      - private_ip                         = "10.40.100.31" -> null
-      - public_ip                          = "13.205.229.146" -> null
+      - id                                 = "nat-0991481ef28c1fd5b" -> null
+      - network_interface_id               = "eni-0641251615e0c81a6" -> null
+      - private_ip                         = "10.40.100.122" -> null
+      - public_ip                          = "15.252.166.183" -> null
       - region                             = "ap-south-1" -> null
       - regional_nat_gateway_address       = [] -> null
       - secondary_allocation_ids           = [] -> null
       - secondary_private_ip_address_count = 0 -> null
       - secondary_private_ip_addresses     = [] -> null
-      - subnet_id                          = "subnet-0ce830dc5df6973ee" -> null
+      - subnet_id                          = "subnet-0772687d2e7ba7528" -> null
       - tags                               = {
           - "Name" = "clinicflow-vpc-ap-south-1a"
         } -> null
@@ -1431,17 +1431,17 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id                             = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                             = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.vpc.aws_route.private_nat_gateway[0] will be destroyed
   - resource "aws_route" "private_nat_gateway" {
       - destination_cidr_block      = "0.0.0.0/0" -> null
-      - id                          = "r-rtb-035553485911c4bc61080289494" -> null
-      - nat_gateway_id              = "nat-0ddf5b7aca6b51e7c" -> null
+      - id                          = "r-rtb-0ab12da15b487f3ff1080289494" -> null
+      - nat_gateway_id              = "nat-0991481ef28c1fd5b" -> null
       - origin                      = "CreateRoute" -> null
       - region                      = "ap-south-1" -> null
-      - route_table_id              = "rtb-035553485911c4bc6" -> null
+      - route_table_id              = "rtb-0ab12da15b487f3ff" -> null
       - state                       = "active" -> null
         # (14 unchanged attributes hidden)
 
@@ -1453,11 +1453,11 @@ Terraform will perform the following actions:
   # module.vpc.aws_route.public_internet_gateway[0] will be destroyed
   - resource "aws_route" "public_internet_gateway" {
       - destination_cidr_block      = "0.0.0.0/0" -> null
-      - gateway_id                  = "igw-08d56e5731dde7e3e" -> null
-      - id                          = "r-rtb-0e8a6b64699fe0b591080289494" -> null
+      - gateway_id                  = "igw-044f397e31af12de3" -> null
+      - id                          = "r-rtb-02ed5236d32f9e09a1080289494" -> null
       - origin                      = "CreateRoute" -> null
       - region                      = "ap-south-1" -> null
-      - route_table_id              = "rtb-0e8a6b64699fe0b59" -> null
+      - route_table_id              = "rtb-02ed5236d32f9e09a" -> null
       - state                       = "active" -> null
         # (14 unchanged attributes hidden)
 
@@ -1468,15 +1468,15 @@ Terraform will perform the following actions:
 
   # module.vpc.aws_route_table.private[0] will be destroyed
   - resource "aws_route_table" "private" {
-      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-035553485911c4bc6" -> null
-      - id               = "rtb-035553485911c4bc6" -> null
+      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-0ab12da15b487f3ff" -> null
+      - id               = "rtb-0ab12da15b487f3ff" -> null
       - owner_id         = "<account-id>" -> null
       - propagating_vgws = [] -> null
       - region           = "ap-south-1" -> null
       - route            = [
           - {
               - cidr_block                 = "0.0.0.0/0"
-              - nat_gateway_id             = "nat-0ddf5b7aca6b51e7c"
+              - nat_gateway_id             = "nat-0991481ef28c1fd5b"
                 # (12 unchanged attributes hidden)
             },
         ] -> null
@@ -1490,20 +1490,20 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id           = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id           = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.vpc.aws_route_table.public[0] will be destroyed
   - resource "aws_route_table" "public" {
-      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-0e8a6b64699fe0b59" -> null
-      - id               = "rtb-0e8a6b64699fe0b59" -> null
+      - arn              = "arn:aws:ec2:ap-south-1:<account-id>:route-table/rtb-02ed5236d32f9e09a" -> null
+      - id               = "rtb-02ed5236d32f9e09a" -> null
       - owner_id         = "<account-id>" -> null
       - propagating_vgws = [] -> null
       - region           = "ap-south-1" -> null
       - route            = [
           - {
               - cidr_block                 = "0.0.0.0/0"
-              - gateway_id                 = "igw-08d56e5731dde7e3e"
+              - gateway_id                 = "igw-044f397e31af12de3"
                 # (12 unchanged attributes hidden)
             },
         ] -> null
@@ -1517,48 +1517,48 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - vpc_id           = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id           = "vpc-091520c4bce92dc32" -> null
     }
 
   # module.vpc.aws_route_table_association.private[0] will be destroyed
   - resource "aws_route_table_association" "private" {
-      - id             = "rtbassoc-0c51e62616f728d98" -> null
+      - id             = "rtbassoc-0197ae48c13d8fe2a" -> null
       - region         = "ap-south-1" -> null
-      - route_table_id = "rtb-035553485911c4bc6" -> null
-      - subnet_id      = "subnet-0aa920b6d6ce90cf5" -> null
+      - route_table_id = "rtb-0ab12da15b487f3ff" -> null
+      - subnet_id      = "subnet-0e8b74fdafc61e5d3" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.vpc.aws_route_table_association.private[1] will be destroyed
   - resource "aws_route_table_association" "private" {
-      - id             = "rtbassoc-0ddda6dc93f8573b1" -> null
+      - id             = "rtbassoc-0a7bceffb24e8623c" -> null
       - region         = "ap-south-1" -> null
-      - route_table_id = "rtb-035553485911c4bc6" -> null
-      - subnet_id      = "subnet-0a62e25e785238398" -> null
+      - route_table_id = "rtb-0ab12da15b487f3ff" -> null
+      - subnet_id      = "subnet-0f2ddac6d0c684f76" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.vpc.aws_route_table_association.public[0] will be destroyed
   - resource "aws_route_table_association" "public" {
-      - id             = "rtbassoc-04d681e8145da0dd1" -> null
+      - id             = "rtbassoc-09ba124d803568d72" -> null
       - region         = "ap-south-1" -> null
-      - route_table_id = "rtb-0e8a6b64699fe0b59" -> null
-      - subnet_id      = "subnet-0ce830dc5df6973ee" -> null
+      - route_table_id = "rtb-02ed5236d32f9e09a" -> null
+      - subnet_id      = "subnet-0772687d2e7ba7528" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.vpc.aws_route_table_association.public[1] will be destroyed
   - resource "aws_route_table_association" "public" {
-      - id             = "rtbassoc-029b0229f7fa5587a" -> null
+      - id             = "rtbassoc-0da40946463da452a" -> null
       - region         = "ap-south-1" -> null
-      - route_table_id = "rtb-0e8a6b64699fe0b59" -> null
-      - subnet_id      = "subnet-08866a14bf99468c0" -> null
+      - route_table_id = "rtb-02ed5236d32f9e09a" -> null
+      - subnet_id      = "subnet-0e125028df3662ac5" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.vpc.aws_subnet.private[0] will be destroyed
   - resource "aws_subnet" "private" {
-      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0aa920b6d6ce90cf5" -> null
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0e8b74fdafc61e5d3" -> null
       - assign_ipv6_address_on_creation                = false -> null
       - availability_zone                              = "ap-south-1a" -> null
       - availability_zone_id                           = "aps1-az1" -> null
@@ -1567,7 +1567,7 @@ Terraform will perform the following actions:
       - enable_lni_at_device_index                     = 0 -> null
       - enable_resource_name_dns_a_record_on_launch    = false -> null
       - enable_resource_name_dns_aaaa_record_on_launch = false -> null
-      - id                                             = "subnet-0aa920b6d6ce90cf5" -> null
+      - id                                             = "subnet-0e8b74fdafc61e5d3" -> null
       - ipv6_native                                    = false -> null
       - map_customer_owned_ip_on_launch                = false -> null
       - map_public_ip_on_launch                        = false -> null
@@ -1586,13 +1586,13 @@ Terraform will perform the following actions:
           - "Project"                         = "clinicflow"
           - "kubernetes.io/role/internal-elb" = "1"
         } -> null
-      - vpc_id                                         = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                                         = "vpc-091520c4bce92dc32" -> null
         # (4 unchanged attributes hidden)
     }
 
   # module.vpc.aws_subnet.private[1] will be destroyed
   - resource "aws_subnet" "private" {
-      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0a62e25e785238398" -> null
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0f2ddac6d0c684f76" -> null
       - assign_ipv6_address_on_creation                = false -> null
       - availability_zone                              = "ap-south-1b" -> null
       - availability_zone_id                           = "aps1-az3" -> null
@@ -1601,7 +1601,7 @@ Terraform will perform the following actions:
       - enable_lni_at_device_index                     = 0 -> null
       - enable_resource_name_dns_a_record_on_launch    = false -> null
       - enable_resource_name_dns_aaaa_record_on_launch = false -> null
-      - id                                             = "subnet-0a62e25e785238398" -> null
+      - id                                             = "subnet-0f2ddac6d0c684f76" -> null
       - ipv6_native                                    = false -> null
       - map_customer_owned_ip_on_launch                = false -> null
       - map_public_ip_on_launch                        = false -> null
@@ -1620,13 +1620,13 @@ Terraform will perform the following actions:
           - "Project"                         = "clinicflow"
           - "kubernetes.io/role/internal-elb" = "1"
         } -> null
-      - vpc_id                                         = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                                         = "vpc-091520c4bce92dc32" -> null
         # (4 unchanged attributes hidden)
     }
 
   # module.vpc.aws_subnet.public[0] will be destroyed
   - resource "aws_subnet" "public" {
-      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0ce830dc5df6973ee" -> null
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0772687d2e7ba7528" -> null
       - assign_ipv6_address_on_creation                = false -> null
       - availability_zone                              = "ap-south-1a" -> null
       - availability_zone_id                           = "aps1-az1" -> null
@@ -1635,7 +1635,7 @@ Terraform will perform the following actions:
       - enable_lni_at_device_index                     = 0 -> null
       - enable_resource_name_dns_a_record_on_launch    = false -> null
       - enable_resource_name_dns_aaaa_record_on_launch = false -> null
-      - id                                             = "subnet-0ce830dc5df6973ee" -> null
+      - id                                             = "subnet-0772687d2e7ba7528" -> null
       - ipv6_native                                    = false -> null
       - map_customer_owned_ip_on_launch                = false -> null
       - map_public_ip_on_launch                        = true -> null
@@ -1654,13 +1654,13 @@ Terraform will perform the following actions:
           - "Project"                = "clinicflow"
           - "kubernetes.io/role/elb" = "1"
         } -> null
-      - vpc_id                                         = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                                         = "vpc-091520c4bce92dc32" -> null
         # (4 unchanged attributes hidden)
     }
 
   # module.vpc.aws_subnet.public[1] will be destroyed
   - resource "aws_subnet" "public" {
-      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-08866a14bf99468c0" -> null
+      - arn                                            = "arn:aws:ec2:ap-south-1:<account-id>:subnet/subnet-0e125028df3662ac5" -> null
       - assign_ipv6_address_on_creation                = false -> null
       - availability_zone                              = "ap-south-1b" -> null
       - availability_zone_id                           = "aps1-az3" -> null
@@ -1669,7 +1669,7 @@ Terraform will perform the following actions:
       - enable_lni_at_device_index                     = 0 -> null
       - enable_resource_name_dns_a_record_on_launch    = false -> null
       - enable_resource_name_dns_aaaa_record_on_launch = false -> null
-      - id                                             = "subnet-08866a14bf99468c0" -> null
+      - id                                             = "subnet-0e125028df3662ac5" -> null
       - ipv6_native                                    = false -> null
       - map_customer_owned_ip_on_launch                = false -> null
       - map_public_ip_on_launch                        = true -> null
@@ -1688,26 +1688,26 @@ Terraform will perform the following actions:
           - "Project"                = "clinicflow"
           - "kubernetes.io/role/elb" = "1"
         } -> null
-      - vpc_id                                         = "vpc-00a67eb71ae9f7d6f" -> null
+      - vpc_id                                         = "vpc-091520c4bce92dc32" -> null
         # (4 unchanged attributes hidden)
     }
 
   # module.vpc.aws_vpc.this[0] will be destroyed
   - resource "aws_vpc" "this" {
-      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:vpc/vpc-00a67eb71ae9f7d6f" -> null
+      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:vpc/vpc-091520c4bce92dc32" -> null
       - assign_generated_ipv6_cidr_block     = false -> null
       - cidr_block                           = "10.40.0.0/16" -> null
-      - default_network_acl_id               = "acl-0d9c0a9ea89f1fa9f" -> null
-      - default_route_table_id               = "rtb-04a442dbc6e9bf218" -> null
-      - default_security_group_id            = "sg-0152660bf8333f0d5" -> null
+      - default_network_acl_id               = "acl-09fb771e06b4c8b58" -> null
+      - default_route_table_id               = "rtb-09629c21f66e91774" -> null
+      - default_security_group_id            = "sg-06902463b3da21aba" -> null
       - dhcp_options_id                      = "dopt-0e9e21aaf45cf6788" -> null
       - enable_dns_hostnames                 = true -> null
       - enable_dns_support                   = true -> null
       - enable_network_address_usage_metrics = false -> null
-      - id                                   = "vpc-00a67eb71ae9f7d6f" -> null
+      - id                                   = "vpc-091520c4bce92dc32" -> null
       - instance_tenancy                     = "default" -> null
       - ipv6_netmask_length                  = 0 -> null
-      - main_route_table_id                  = "rtb-04a442dbc6e9bf218" -> null
+      - main_route_table_id                  = "rtb-09629c21f66e91774" -> null
       - owner_id                             = "<account-id>" -> null
       - region                               = "ap-south-1" -> null
       - tags                                 = {
@@ -1726,27 +1726,27 @@ Terraform will perform the following actions:
   # module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0] will be destroyed
   - resource "aws_eks_node_group" "this" {
       - ami_type               = "AL2023_x86_64_STANDARD" -> null
-      - arn                    = "arn:aws:eks:ap-south-1:<account-id>:nodegroup/clinicflow-eks/general-daf955f396767341e95b801ed9/68d0a291-4075-8ee9-4969-732ad18df90c" -> null
+      - arn                    = "arn:aws:eks:ap-south-1:<account-id>:nodegroup/clinicflow-eks/general-0bba11e101de53bd2a85595069/ead0bd90-34ed-c3db-546e-93d57aeb2928" -> null
       - capacity_type          = "ON_DEMAND" -> null
       - cluster_name           = "clinicflow-eks" -> null
       - disk_size              = 0 -> null
-      - id                     = "clinicflow-eks:general-daf955f396767341e95b801ed9" -> null
+      - id                     = "clinicflow-eks:general-0bba11e101de53bd2a85595069" -> null
       - instance_types         = [
           - "t3.medium",
         ] -> null
       - labels                 = {
           - "workload" = "general"
         } -> null
-      - node_group_name        = "general-daf955f396767341e95b801ed9" -> null
+      - node_group_name        = "general-0bba11e101de53bd2a85595069" -> null
       - node_group_name_prefix = "general-" -> null
-      - node_role_arn          = "arn:aws:iam::<account-id>:role/general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - node_role_arn          = "arn:aws:iam::<account-id>:role/general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
       - region                 = "ap-south-1" -> null
-      - release_version        = "1.36.4-20261012" -> null
+      - release_version        = "1.36.5-20261023" -> null
       - resources              = [
           - {
               - autoscaling_groups              = [
                   - {
-                      - name = "eks-general-daf955f396767341e95b801ed9-68d0a291-4075-8ee9-4969-732ad18df90c"
+                      - name = "eks-general-0bba11e101de53bd2a85595069-ead0bd90-34ed-c3db-546e-93d57aeb2928"
                     },
                 ]
                 # (1 unchanged attribute hidden)
@@ -1754,8 +1754,8 @@ Terraform will perform the following actions:
         ] -> null
       - status                 = "ACTIVE" -> null
       - subnet_ids             = [
-          - "subnet-0a62e25e785238398",
-          - "subnet-0aa920b6d6ce90cf5",
+          - "subnet-0e8b74fdafc61e5d3",
+          - "subnet-0f2ddac6d0c684f76",
         ] -> null
       - tags                   = {
           - "Name" = "general"
@@ -1770,8 +1770,8 @@ Terraform will perform the following actions:
       - version                = "1.36" -> null
 
       - launch_template {
-          - id      = "lt-0c6397053bfc081ba" -> null
-          - name    = "general-eaa54264494bb69e548e84ab9b" -> null
+          - id      = "lt-065b494b18056f1a2" -> null
+          - name    = "general-1022e0575fa07eda534218ab8b" -> null
           - version = "1" -> null
         }
 
@@ -1790,7 +1790,7 @@ Terraform will perform the following actions:
 
   # module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0] will be destroyed
   - resource "aws_iam_role" "this" {
-      - arn                   = "arn:aws:iam::<account-id>:role/general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - arn                   = "arn:aws:iam::<account-id>:role/general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
       - assume_role_policy    = jsonencode(
             {
               - Statement = [
@@ -1806,17 +1806,17 @@ Terraform will perform the following actions:
               - Version   = "2012-10-17"
             }
         ) -> null
-      - create_date           = "2026-10-16T14:24:29Z" -> null
+      - create_date           = "2026-10-27T02:02:45Z" -> null
       - description           = "EKS managed node group IAM role" -> null
       - force_detach_policies = true -> null
-      - id                    = "general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - id                    = "general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
       - managed_policy_arns   = [
           - "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
           - "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
           - "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
         ] -> null
       - max_session_duration  = 3600 -> null
-      - name                  = "general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - name                  = "general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
       - name_prefix           = "general-eks-node-group-" -> null
       - path                  = "/" -> null
       - tags                  = {} -> null
@@ -1826,41 +1826,41 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - unique_id             = "AROA2USJSR2QIYLC3WNBI" -> null
+      - unique_id             = "AROA2USJSR2QEZY6IIIVS" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - id         = "general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
-      - role       = "general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - role       = "general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
     }
 
   # module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - id         = "general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
-      - role       = "general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - role       = "general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
     }
 
   # module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - id         = "general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
-      - role       = "general-eks-node-group-93f78e048e2de297ddf9bee167" -> null
+      - role       = "general-eks-node-group-9b870c44eaa66a600d32afe7b5" -> null
     }
 
   # module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0] will be destroyed
   - resource "aws_launch_template" "this" {
-      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:launch-template/lt-0c6397053bfc081ba" -> null
+      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:launch-template/lt-065b494b18056f1a2" -> null
       - default_version                      = 1 -> null
       - description                          = "Custom launch template for general EKS managed node group" -> null
       - disable_api_stop                     = false -> null
       - disable_api_termination              = false -> null
-      - id                                   = "lt-0c6397053bfc081ba" -> null
+      - id                                   = "lt-065b494b18056f1a2" -> null
       - latest_version                       = 1 -> null
-      - name                                 = "general-eaa54264494bb69e548e84ab9b" -> null
+      - name                                 = "general-1022e0575fa07eda534218ab8b" -> null
       - name_prefix                          = "general-" -> null
       - region                               = "ap-south-1" -> null
       - security_group_names                 = [] -> null
@@ -1873,7 +1873,7 @@ Terraform will perform the following actions:
         } -> null
       - update_default_version               = true -> null
       - vpc_security_group_ids               = [
-          - "sg-04999a223a2f0a34e",
+          - "sg-0814234dc8b37cd41",
         ] -> null
         # (8 unchanged attributes hidden)
 
@@ -1907,27 +1907,27 @@ Terraform will perform the following actions:
   # module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0] will be destroyed
   - resource "aws_eks_node_group" "this" {
       - ami_type               = "AL2023_x86_64_STANDARD" -> null
-      - arn                    = "arn:aws:eks:ap-south-1:<account-id>:nodegroup/clinicflow-eks/ingress-52d80857102fabb942c511e247/b6d0a2a8-9b76-5f10-1fc1-37788369fe14" -> null
+      - arn                    = "arn:aws:eks:ap-south-1:<account-id>:nodegroup/clinicflow-eks/ingress-6a9cfdbd42c3280b2fe249c563/a6d0bd90-34eb-e0af-fa98-0672dcafa9bb" -> null
       - capacity_type          = "ON_DEMAND" -> null
       - cluster_name           = "clinicflow-eks" -> null
       - disk_size              = 0 -> null
-      - id                     = "clinicflow-eks:ingress-52d80857102fabb942c511e247" -> null
+      - id                     = "clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563" -> null
       - instance_types         = [
           - "t3.small",
         ] -> null
       - labels                 = {
           - "ingress" = "public"
         } -> null
-      - node_group_name        = "ingress-52d80857102fabb942c511e247" -> null
+      - node_group_name        = "ingress-6a9cfdbd42c3280b2fe249c563" -> null
       - node_group_name_prefix = "ingress-" -> null
-      - node_role_arn          = "arn:aws:iam::<account-id>:role/ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - node_role_arn          = "arn:aws:iam::<account-id>:role/ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
       - region                 = "ap-south-1" -> null
-      - release_version        = "1.36.4-20261012" -> null
+      - release_version        = "1.36.5-20261023" -> null
       - resources              = [
           - {
               - autoscaling_groups              = [
                   - {
-                      - name = "eks-ingress-52d80857102fabb942c511e247-b6d0a2a8-9b76-5f10-1fc1-37788369fe14"
+                      - name = "eks-ingress-6a9cfdbd42c3280b2fe249c563-a6d0bd90-34eb-e0af-fa98-0672dcafa9bb"
                     },
                 ]
                 # (1 unchanged attribute hidden)
@@ -1935,8 +1935,8 @@ Terraform will perform the following actions:
         ] -> null
       - status                 = "ACTIVE" -> null
       - subnet_ids             = [
-          - "subnet-08866a14bf99468c0",
-          - "subnet-0ce830dc5df6973ee",
+          - "subnet-0772687d2e7ba7528",
+          - "subnet-0e125028df3662ac5",
         ] -> null
       - tags                   = {
           - "Name" = "ingress"
@@ -1951,8 +1951,8 @@ Terraform will perform the following actions:
       - version                = "1.36" -> null
 
       - launch_template {
-          - id      = "lt-0d7eba6a9d0ec8ab1" -> null
-          - name    = "ingress-0bc17a10ee0a55efefd59a8d8c" -> null
+          - id      = "lt-03ec3a2a33e390637" -> null
+          - name    = "ingress-30a7de18b0124f83ce9bab4c74" -> null
           - version = "1" -> null
         }
 
@@ -1977,7 +1977,7 @@ Terraform will perform the following actions:
 
   # module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0] will be destroyed
   - resource "aws_iam_role" "this" {
-      - arn                   = "arn:aws:iam::<account-id>:role/ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - arn                   = "arn:aws:iam::<account-id>:role/ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
       - assume_role_policy    = jsonencode(
             {
               - Statement = [
@@ -1993,17 +1993,17 @@ Terraform will perform the following actions:
               - Version   = "2012-10-17"
             }
         ) -> null
-      - create_date           = "2026-10-16T15:25:02Z" -> null
+      - create_date           = "2026-10-27T02:02:45Z" -> null
       - description           = "EKS managed node group IAM role" -> null
       - force_detach_policies = true -> null
-      - id                    = "ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - id                    = "ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
       - managed_policy_arns   = [
           - "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
           - "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
           - "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
         ] -> null
       - max_session_duration  = 3600 -> null
-      - name                  = "ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - name                  = "ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
       - name_prefix           = "ingress-eks-node-group-" -> null
       - path                  = "/" -> null
       - tags                  = {} -> null
@@ -2013,41 +2013,41 @@ Terraform will perform the following actions:
           - "Owner"       = "ankit-kumar"
           - "Project"     = "clinicflow"
         } -> null
-      - unique_id             = "AROA2USJSR2QCQSL7F7IY" -> null
+      - unique_id             = "AROA2USJSR2QJG6ZKZ7RF" -> null
         # (1 unchanged attribute hidden)
     }
 
   # module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - id         = "ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
-      - role       = "ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - role       = "ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
     }
 
   # module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - id         = "ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
-      - role       = "ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - role       = "ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
     }
 
   # module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"] will be destroyed
   - resource "aws_iam_role_policy_attachment" "this" {
-      - id         = "ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - id         = "ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
       - policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
-      - role       = "ingress-eks-node-group-9a56a675abfafccbe95576cea5" -> null
+      - role       = "ingress-eks-node-group-dd32399e8634021edfea2db8c1" -> null
     }
 
   # module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0] will be destroyed
   - resource "aws_launch_template" "this" {
-      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:launch-template/lt-0d7eba6a9d0ec8ab1" -> null
+      - arn                                  = "arn:aws:ec2:ap-south-1:<account-id>:launch-template/lt-03ec3a2a33e390637" -> null
       - default_version                      = 1 -> null
       - description                          = "Custom launch template for ingress EKS managed node group" -> null
       - disable_api_stop                     = false -> null
       - disable_api_termination              = false -> null
-      - id                                   = "lt-0d7eba6a9d0ec8ab1" -> null
+      - id                                   = "lt-03ec3a2a33e390637" -> null
       - latest_version                       = 1 -> null
-      - name                                 = "ingress-0bc17a10ee0a55efefd59a8d8c" -> null
+      - name                                 = "ingress-30a7de18b0124f83ce9bab4c74" -> null
       - name_prefix                          = "ingress-" -> null
       - region                               = "ap-south-1" -> null
       - security_group_names                 = [] -> null
@@ -2060,8 +2060,8 @@ Terraform will perform the following actions:
         } -> null
       - update_default_version               = true -> null
       - vpc_security_group_ids               = [
-          - "sg-04999a223a2f0a34e",
-          - "sg-0507ca305909d82e3",
+          - "sg-05206a53f0c560c7c",
+          - "sg-0814234dc8b37cd41",
         ] -> null
         # (8 unchanged attributes hidden)
 
@@ -2094,205 +2094,210 @@ Terraform will perform the following actions:
 
   # module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr will be destroyed
   - resource "null_resource" "validate_cluster_service_cidr" {
-      - id = "1003730456744715384" -> null
+      - id = "5529822511115152993" -> null
     }
 
   # module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr will be destroyed
   - resource "null_resource" "validate_cluster_service_cidr" {
-      - id = "7437063414076826857" -> null
+      - id = "4585869376850139815" -> null
     }
 
 Plan: 0 to add, 0 to change, 69 to destroy.
 
 Changes to Outputs:
-  - cluster_endpoint       = "https://156ADE2F417AEFA349F1D05C91A60DA4.gr7.ap-south-1.eks.amazonaws.com" -> null
+  - cluster_endpoint       = "https://F7A5232589C358A118541F6C8EF682C0.gr7.ap-south-1.eks.amazonaws.com" -> null
   - cluster_name           = "clinicflow-eks" -> null
   - cluster_version        = "1.36" -> null
   - configure_kubectl      = "aws eks update-kubeconfig --region ap-south-1 --name clinicflow-eks" -> null
   - github_deploy_role_arn = "arn:aws:iam::<account-id>:role/clinicflow-github-deploy" -> null
   - ingress_mode           = "public-node" -> null
   - private_subnets        = [
-      - "subnet-0aa920b6d6ce90cf5",
-      - "subnet-0a62e25e785238398",
+      - "subnet-0e8b74fdafc61e5d3",
+      - "subnet-0f2ddac6d0c684f76",
     ] -> null
   - public_subnets         = [
-      - "subnet-0ce830dc5df6973ee",
-      - "subnet-08866a14bf99468c0",
+      - "subnet-0772687d2e7ba7528",
+      - "subnet-0e125028df3662ac5",
     ] -> null
   - region                 = "ap-south-1" -> null
-  - vpc_id                 = "vpc-00a67eb71ae9f7d6f" -> null
-aws_iam_role_policy.github_deploy[0]: Destroying... [id=clinicflow-github-deploy:describe-eks-cluster]
-module.vpc.aws_route_table_association.private[1]: Destroying... [id=rtbassoc-0ddda6dc93f8573b1]
-module.vpc.aws_default_route_table.default[0]: Destroying... [id=rtb-04a442dbc6e9bf218]
-module.vpc.aws_default_security_group.this[0]: Destroying... [id=sg-0152660bf8333f0d5]
-aws_vpc_security_group_ingress_rule.ingress_http["80"]: Destroying... [id=sgr-0867cbcbad7dbbce5]
-aws_vpc_security_group_ingress_rule.ingress_http["443"]: Destroying... [id=sgr-0f3cc00b1954210e6]
-module.eks.aws_eks_addon.this["metrics-server"]: Destroying... [id=clinicflow-eks:metrics-server]
-module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Destroying... [id=clinicflow-eks:aws-ebs-csi-driver]
-module.vpc.aws_route.private_nat_gateway[0]: Destroying... [id=r-rtb-035553485911c4bc61080289494]
-module.vpc.aws_default_network_acl.this[0]: Destroying... [id=acl-0d9c0a9ea89f1fa9f]
-module.vpc.aws_default_security_group.this[0]: Destruction complete after 0s
-module.vpc.aws_default_route_table.default[0]: Destruction complete after 0s
-module.vpc.aws_default_network_acl.this[0]: Destruction complete after 0s
-module.vpc.aws_route.public_internet_gateway[0]: Destroying... [id=r-rtb-0e8a6b64699fe0b591080289494]
-module.eks.aws_eks_addon.before_compute["vpc-cni"]: Destroying... [id=clinicflow-eks:vpc-cni]
-module.vpc.aws_route_table_association.private[0]: Destroying... [id=rtbassoc-0c51e62616f728d98]
-module.vpc.aws_route_table_association.private[1]: Destruction complete after 1s
-module.vpc.aws_route_table_association.public[0]: Destroying... [id=rtbassoc-04d681e8145da0dd1]
-module.vpc.aws_route_table_association.private[0]: Destruction complete after 1s
-module.eks.aws_eks_addon.this["coredns"]: Destroying... [id=clinicflow-eks:coredns]
-aws_vpc_security_group_ingress_rule.ingress_http["443"]: Destruction complete after 1s
-module.vpc.aws_route.private_nat_gateway[0]: Destruction complete after 1s
+  - vpc_id                 = "vpc-091520c4bce92dc32" -> null
 aws_iam_role_policy_attachment.ebs_csi: Destroying... [id=clinicflow-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+module.vpc.aws_route.private_nat_gateway[0]: Destroying... [id=r-rtb-0ab12da15b487f3ff1080289494]
+module.vpc.aws_route_table_association.private[1]: Destroying... [id=rtbassoc-0a7bceffb24e8623c]
+module.eks.aws_eks_addon.this["metrics-server"]: Destroying... [id=clinicflow-eks:metrics-server]
+module.vpc.aws_route.public_internet_gateway[0]: Destroying... [id=r-rtb-02ed5236d32f9e09a1080289494]
+module.vpc.aws_default_route_table.default[0]: Destroying... [id=rtb-09629c21f66e91774]
+module.vpc.aws_route_table_association.private[0]: Destroying... [id=rtbassoc-0197ae48c13d8fe2a]
+module.eks.aws_eks_addon.before_compute["vpc-cni"]: Destroying... [id=clinicflow-eks:vpc-cni]
 module.eks.aws_eks_addon.this["kube-proxy"]: Destroying... [id=clinicflow-eks:kube-proxy]
-aws_vpc_security_group_ingress_rule.ingress_http["80"]: Destruction complete after 1s
-module.vpc.aws_route_table_association.public[1]: Destroying... [id=rtbassoc-029b0229f7fa5587a]
-module.vpc.aws_route_table_association.public[0]: Destruction complete after 0s
-module.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"]: Destroying... [id=clinicflow-eks:eks-pod-identity-agent]
+module.eks.aws_eks_addon.this["coredns"]: Destroying... [id=clinicflow-eks:coredns]
+module.vpc.aws_default_route_table.default[0]: Destruction complete after 0s
+module.vpc.aws_route_table_association.public[1]: Destroying... [id=rtbassoc-0da40946463da452a]
+module.vpc.aws_route_table_association.private[1]: Destruction complete after 1s
+module.vpc.aws_route_table_association.private[0]: Destruction complete after 1s
+aws_vpc_security_group_ingress_rule.ingress_http["443"]: Destroying... [id=sgr-09d75bb99b94e55f9]
+module.vpc.aws_default_network_acl.this[0]: Destroying... [id=acl-09fb771e06b4c8b58]
+module.vpc.aws_default_network_acl.this[0]: Destruction complete after 0s
+module.vpc.aws_route_table_association.public[0]: Destroying... [id=rtbassoc-09ba124d803568d72]
+module.vpc.aws_route_table_association.public[1]: Destruction complete after 1s
+aws_vpc_security_group_ingress_rule.ingress_http["80"]: Destroying... [id=sgr-04707d5c31919e2d4]
 module.vpc.aws_route.public_internet_gateway[0]: Destruction complete after 1s
-module.vpc.aws_route_table.private[0]: Destroying... [id=rtb-035553485911c4bc6]
-module.vpc.aws_route_table_association.public[1]: Destruction complete after 0s
-module.vpc.aws_nat_gateway.this[0]: Destroying... [id=nat-0ddf5b7aca6b51e7c]
-aws_iam_role_policy.github_deploy[0]: Destruction complete after 1s
-module.vpc.aws_route_table.public[0]: Destroying... [id=rtb-0e8a6b64699fe0b59]
-module.vpc.aws_route_table.private[0]: Destruction complete after 1s
-module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Destroying... [id=clinicflow-eks#arn:aws:iam::<account-id>:user/terraform-student#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
+module.vpc.aws_route.private_nat_gateway[0]: Destruction complete after 1s
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Destroying... [id=clinicflow-eks:aws-ebs-csi-driver]
+module.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"]: Destroying... [id=clinicflow-eks:eks-pod-identity-agent]
+module.vpc.aws_route_table_association.public[0]: Destruction complete after 0s
+aws_vpc_security_group_ingress_rule.ingress_http["443"]: Destruction complete after 0s
+module.vpc.aws_default_security_group.this[0]: Destroying... [id=sg-06902463b3da21aba]
+module.vpc.aws_default_security_group.this[0]: Destruction complete after 0s
+aws_iam_role_policy.github_deploy[0]: Destroying... [id=clinicflow-github-deploy:describe-eks-cluster]
+module.vpc.aws_nat_gateway.this[0]: Destroying... [id=nat-0991481ef28c1fd5b]
+aws_vpc_security_group_ingress_rule.ingress_http["80"]: Destruction complete after 0s
+module.vpc.aws_route_table.private[0]: Destroying... [id=rtb-0ab12da15b487f3ff]
 aws_iam_role_policy_attachment.ebs_csi: Destruction complete after 1s
+module.vpc.aws_route_table.public[0]: Destroying... [id=rtb-02ed5236d32f9e09a]
+module.vpc.aws_route_table.private[0]: Destruction complete after 1s
+aws_iam_role_policy.github_deploy[0]: Destruction complete after 1s
+module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Destroying... [id=clinicflow-eks#arn:aws:iam::<account-id>:user/terraform-student#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
 module.eks.aws_eks_access_policy_association.this["github_actions_admin"]: Destroying... [id=clinicflow-eks#arn:aws:iam::<account-id>:role/clinicflow-github-deploy#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy]
-module.vpc.aws_route_table.public[0]: Destruction complete after 1s
-module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Destruction complete after 0s
-module.eks.aws_eks_access_policy_association.this["github_actions_admin"]: Destruction complete after 0s
-module.eks.aws_eks_access_entry.this["cluster_creator"]: Destroying... [id=clinicflow-eks:arn:aws:iam::<account-id>:user/terraform-student]
-module.eks.aws_eks_access_entry.this["github_actions"]: Destroying... [id=clinicflow-eks:arn:aws:iam::<account-id>:role/clinicflow-github-deploy]
-module.eks.aws_eks_addon.this["kube-proxy"]: Destruction complete after 1s
 module.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"]: Destruction complete after 1s
-module.eks.aws_eks_access_entry.this["cluster_creator"]: Destruction complete after 0s
-module.eks.aws_eks_addon.before_compute["vpc-cni"]: Destruction complete after 3s
+module.eks.aws_eks_addon.this["kube-proxy"]: Destruction complete after 2s
+module.vpc.aws_route_table.public[0]: Destruction complete after 1s
+module.eks.aws_eks_access_policy_association.this["github_actions_admin"]: Destruction complete after 0s
+module.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Destruction complete after 0s
+module.eks.aws_eks_access_entry.this["github_actions"]: Destroying... [id=clinicflow-eks:arn:aws:iam::<account-id>:role/clinicflow-github-deploy]
+module.eks.aws_eks_access_entry.this["cluster_creator"]: Destroying... [id=clinicflow-eks:arn:aws:iam::<account-id>:user/terraform-student]
 module.eks.aws_eks_access_entry.this["github_actions"]: Destruction complete after 1s
+module.eks.aws_eks_addon.this["coredns"]: Destruction complete after 3s
+module.eks.aws_eks_access_entry.this["cluster_creator"]: Destruction complete after 1s
 aws_iam_role.github_deploy[0]: Destroying... [id=clinicflow-github-deploy]
-module.eks.aws_eks_addon.this["coredns"]: Destruction complete after 2s
 aws_iam_role.github_deploy[0]: Destruction complete after 1s
 aws_iam_openid_connect_provider.github[0]: Destroying... [id=arn:aws:iam::<account-id>:oidc-provider/token.actions.githubusercontent.com]
 aws_iam_openid_connect_provider.github[0]: Destruction complete after 0s
+module.eks.aws_eks_addon.before_compute["vpc-cni"]: Destruction complete after 4s
 module.eks.aws_eks_addon.this["metrics-server"]: Destruction complete after 4s
 module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Destruction complete after 9s
-module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr: Destroying... [id=7437063414076826857]
+module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr: Destroying... [id=5529822511115152993]
+module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr: Destroying... [id=4585869376850139815]
 aws_iam_role.ebs_csi: Destroying... [id=clinicflow-ebs-csi]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247]
-module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr: Destroying... [id=1003730456744715384]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069]
 module.eks.module.eks_managed_node_group["general"].module.user_data.null_resource.validate_cluster_service_cidr: Destruction complete after 0s
 module.eks.module.eks_managed_node_group["ingress"].module.user_data.null_resource.validate_cluster_service_cidr: Destruction complete after 0s
 aws_iam_role.ebs_csi: Destruction complete after 0s
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 00m10s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 00m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 00m10s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 00m20s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 00m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 00m20s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 00m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 00m30s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 00m30s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 00m40s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 00m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 00m40s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 00m50s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 00m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 00m50s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 01m00s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m00s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0ddf5b7aca6b51e7c, 01m10s elapsed]
-module.vpc.aws_nat_gateway.this[0]: Destruction complete after 1m11s
-module.vpc.aws_eip.nat[0]: Destroying... [id=eipalloc-00e907fd8fc08035e]
+module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0991481ef28c1fd5b, 00m10s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 00m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 00m10s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0991481ef28c1fd5b, 00m20s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 00m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 00m20s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0991481ef28c1fd5b, 00m30s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 00m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 00m30s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0991481ef28c1fd5b, 00m40s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 00m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 00m40s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still destroying... [id=nat-0991481ef28c1fd5b, 00m50s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Destruction complete after 51s
+module.vpc.aws_eip.nat[0]: Destroying... [id=eipalloc-0c9bfc5b7a6950a11]
 module.vpc.aws_eip.nat[0]: Destruction complete after 1s
-module.vpc.aws_internet_gateway.this[0]: Destroying... [id=igw-08d56e5731dde7e3e]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m10s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m10s elapsed]
-module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-08d56e5731dde7e3e, 00m10s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m20s elapsed]
-module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-08d56e5731dde7e3e, 00m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m30s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m30s elapsed]
-module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-08d56e5731dde7e3e, 00m30s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m40s elapsed]
-module.vpc.aws_internet_gateway.this[0]: Destruction complete after 39s
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 01m50s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 01m50s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 02m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m10s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-52d80857102fabb942c511e247, 02m10s elapsed]
-module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Destruction complete after 2m15s
-module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Destroying... [id=lt-0d7eba6a9d0ec8ab1]
-module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destroying... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destroying... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destroying... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0]: Destroying... [id=ingress-eks-node-group-9a56a675abfafccbe95576cea5]
+module.vpc.aws_internet_gateway.this[0]: Destroying... [id=igw-044f397e31af12de3]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 00m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 00m50s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-044f397e31af12de3, 00m10s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m00s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-044f397e31af12de3, 00m20s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m10s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-044f397e31af12de3, 00m30s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m20s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-044f397e31af12de3, 00m40s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m30s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Still destroying... [id=igw-044f397e31af12de3, 00m50s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m40s elapsed]
+module.vpc.aws_internet_gateway.this[0]: Destruction complete after 59s
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 01m50s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 01m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m00s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m00s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m20s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m20s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m40s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m40s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 02m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 02m50s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:ingress-6a9cfdbd42c3280b2fe249c563, 03m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m00s elapsed]
+module.eks.module.eks_managed_node_group["ingress"].aws_eks_node_group.this[0]: Destruction complete after 3m6s
+module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Destroying... [id=lt-03ec3a2a33e390637]
+module.eks.module.eks_managed_node_group["ingress"].aws_launch_template.this[0]: Destruction complete after 0s
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destroying... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destroying... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destroying... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destruction complete after 2s
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destruction complete after 2s
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destruction complete after 2s
+module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0]: Destroying... [id=ingress-eks-node-group-dd32399e8634021edfea2db8c1]
 module.eks.module.eks_managed_node_group["ingress"].aws_iam_role.this[0]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 02m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 03m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 04m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 05m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 06m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m30s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m40s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 07m50s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 08m00s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 08m10s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-daf955f396767341e95b801ed9, 08m20s elapsed]
-module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Destruction complete after 8m22s
-module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0]: Destroying... [id=lt-0c6397053bfc081ba]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 03m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 04m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 05m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 06m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m30s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m40s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 07m50s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 08m00s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 08m10s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Still destroying... [id=clinicflow-eks:general-0bba11e101de53bd2a85595069, 08m20s elapsed]
+module.eks.module.eks_managed_node_group["general"].aws_eks_node_group.this[0]: Destruction complete after 8m21s
+module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0]: Destroying... [id=lt-065b494b18056f1a2]
 module.eks.module.eks_managed_node_group["general"].aws_launch_template.this[0]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destroying... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destroying... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
-module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destroying... [id=general-eks-node-group-93f78e048e2de297ddf9bee167/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
-module.eks.time_sleep.this[0]: Destroying... [id=2026-10-16T14:34:05Z]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destroying... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destroying... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destroying... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+module.eks.time_sleep.this[0]: Destroying... [id=2026-10-27T02:11:15Z]
 module.eks.time_sleep.this[0]: Destruction complete after 0s
 module.eks.aws_eks_cluster.this[0]: Destroying... [id=clinicflow-eks]
 module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Destruction complete after 1s
 module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Destruction complete after 1s
 module.eks.module.eks_managed_node_group["general"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Destruction complete after 1s
-module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0]: Destroying... [id=general-eks-node-group-93f78e048e2de297ddf9bee167]
+module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0]: Destroying... [id=general-eks-node-group-9b870c44eaa66a600d32afe7b5]
 module.eks.module.eks_managed_node_group["general"].aws_iam_role.this[0]: Destruction complete after 1s
-module.vpc.aws_subnet.public[0]: Destroying... [id=subnet-0ce830dc5df6973ee]
-module.vpc.aws_subnet.public[1]: Destroying... [id=subnet-08866a14bf99468c0]
-aws_security_group.ingress_public[0]: Destroying... [id=sg-0507ca305909d82e3]
-aws_security_group.ingress_public[0]: Destruction complete after 0s
-module.vpc.aws_subnet.public[1]: Destruction complete after 0s
+module.vpc.aws_subnet.public[0]: Destroying... [id=subnet-0772687d2e7ba7528]
+module.vpc.aws_subnet.public[1]: Destroying... [id=subnet-0e125028df3662ac5]
+aws_security_group.ingress_public[0]: Destroying... [id=sg-05206a53f0c560c7c]
+module.vpc.aws_subnet.public[1]: Destruction complete after 1s
 module.vpc.aws_subnet.public[0]: Destruction complete after 1s
+aws_security_group.ingress_public[0]: Destruction complete after 1s
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 00m10s elapsed]
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 00m20s elapsed]
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 00m30s elapsed]
@@ -2309,45 +2314,45 @@ module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 02m1
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 02m20s elapsed]
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 02m30s elapsed]
 module.eks.aws_eks_cluster.this[0]: Still destroying... [id=clinicflow-eks, 02m40s elapsed]
-module.eks.aws_eks_cluster.this[0]: Destruction complete after 2m41s
-module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Destroying... [id=sgrule-166933868]
-module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Destroying... [id=sgrule-1908142688]
-module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Destroying... [id=sgrule-568044049]
-module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Destroying... [id=sgrule-3902393735]
-module.eks.aws_security_group_rule.node["egress_all"]: Destroying... [id=sgrule-2148192387]
-module.vpc.aws_subnet.private[1]: Destroying... [id=subnet-0a62e25e785238398]
-module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Destroying... [id=sgrule-847746608]
-module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Destroying... [id=sgrule-1445373435]
-module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Destroying... [id=sgrule-2516961466]
-module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Destroying... [id=sgrule-4059147901]
-module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Destruction complete after 4s
-module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Destruction complete after 4s
-module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Destroying... [id=sgrule-727519252]
-module.vpc.aws_subnet.private[0]: Destroying... [id=subnet-0aa920b6d6ce90cf5]
-module.vpc.aws_subnet.private[1]: Destruction complete after 4s
-module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Destroying... [id=sgrule-3317235206]
-module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Destruction complete after 5s
-module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Destroying... [id=sgrule-2913769091]
+module.eks.aws_eks_cluster.this[0]: Destruction complete after 2m47s
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Destroying... [id=clinicflow-eks-cluster-61784d17187d52e452671c9916/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Destroying... [id=sgrule-1316568429]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Destroying... [id=sgrule-964964999]
+module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Destroying... [id=sgrule-1972667903]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Destroying... [id=sgrule-1105057156]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Destroying... [id=sgrule-1562706252]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Destroying... [id=sgrule-1238894442]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Destroying... [id=sgrule-914665458]
+module.vpc.aws_subnet.private[1]: Destroying... [id=subnet-0f2ddac6d0c684f76]
+module.vpc.aws_subnet.private[0]: Destroying... [id=subnet-0e8b74fdafc61e5d3]
 module.vpc.aws_subnet.private[0]: Destruction complete after 1s
-module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Destroying... [id=clinicflow-eks-cluster-d83e792737096da9e913db2f38/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
-module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Destruction complete after 7s
-module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Destruction complete after 7s
-module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Destruction complete after 3s
-module.eks.aws_iam_role.this[0]: Destroying... [id=clinicflow-eks-cluster-d83e792737096da9e913db2f38]
-module.eks.aws_security_group_rule.node["egress_all"]: Destruction complete after 8s
-module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Destruction complete after 8s
-module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Destruction complete after 8s
+module.eks.aws_security_group_rule.node["egress_all"]: Destroying... [id=sgrule-2042979700]
+module.vpc.aws_subnet.private[1]: Destruction complete after 1s
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Destroying... [id=sgrule-597498018]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Destruction complete after 1s
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Destroying... [id=sgrule-2277686093]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Destruction complete after 1s
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Destroying... [id=sgrule-2268814075]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Destruction complete after 1s
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Destroying... [id=sgrule-1407273823]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Destruction complete after 1s
+module.eks.aws_iam_role.this[0]: Destroying... [id=clinicflow-eks-cluster-61784d17187d52e452671c9916]
+module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Destruction complete after 2s
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Destruction complete after 2s
 module.eks.aws_iam_role.this[0]: Destruction complete after 1s
-module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Destruction complete after 9s
-module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Destruction complete after 5s
-module.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Destruction complete after 6s
-module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Destruction complete after 5s
-module.eks.aws_security_group.cluster[0]: Destroying... [id=sg-0a565338305368f51]
-module.eks.aws_security_group.node[0]: Destroying... [id=sg-04999a223a2f0a34e]
-module.eks.aws_security_group.node[0]: Destruction complete after 1s
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Destruction complete after 3s
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Destruction complete after 3s
+module.eks.aws_security_group_rule.node["egress_all"]: Destruction complete after 3s
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Destruction complete after 3s
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Destruction complete after 4s
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Destruction complete after 4s
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Destruction complete after 4s
+module.eks.aws_security_group.cluster[0]: Destroying... [id=sg-0e2c48d2d5eab5e4f]
+module.eks.aws_security_group.node[0]: Destroying... [id=sg-0814234dc8b37cd41]
 module.eks.aws_security_group.cluster[0]: Destruction complete after 1s
-module.vpc.aws_vpc.this[0]: Destroying... [id=vpc-00a67eb71ae9f7d6f]
-module.vpc.aws_vpc.this[0]: Destruction complete after 1s
+module.eks.aws_security_group.node[0]: Destruction complete after 1s
+module.vpc.aws_vpc.this[0]: Destroying... [id=vpc-091520c4bce92dc32]
+module.vpc.aws_vpc.this[0]: Destruction complete after 0s
 
 Destroy complete! Resources: 69 destroyed.
 ==> leftovers check (should all be empty)
