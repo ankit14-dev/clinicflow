@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---- build: install dependencies into a self-contained virtualenv ----
-FROM python:3.14-slim AS build
+FROM python:3.15-slim AS build
 ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 RUN python -m venv /opt/venv
 ENV PATH=/opt/venv/bin:$PATH
@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt \
     && pip uninstall -y pip   # not needed at runtime; its vendored urllib3/msgpack carry CVEs
 
 # ---- runtime: only the venv and the app, running as a non-root user ----
-FROM python:3.14-slim
+FROM python:3.15-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH=/opt/venv/bin:$PATH
